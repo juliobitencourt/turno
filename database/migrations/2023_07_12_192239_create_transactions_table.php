@@ -14,9 +14,10 @@ return new class extends Migration
         Schema::create('transactions', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->foreignId('user_id')->nullable()->constrained('users');
-            $table->integer('type');
-            $table->bigInteger('amount');
+            $table->integer('type_id');
             $table->string('description');
+            $table->bigInteger('amount');
+            $table->timestamp('date');
             $table->softDeletes();
             $table->timestamps();
         });

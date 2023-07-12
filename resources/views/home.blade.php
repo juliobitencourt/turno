@@ -104,6 +104,8 @@
                 <span>Accept</span>
             </button>
         </div>
+
+        <my-component></my-component>
         <button class="w-16 h-16 rounded-full bg-blue-800 text-white absolute right-2 bottom-2 flex items-center justify-center">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
