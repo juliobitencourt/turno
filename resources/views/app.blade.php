@@ -1,6 +1,8 @@
 @extends('main')
 
 @section("content")
-    @yield('header')
-    @yield('main')
+    <div class="h-screen flex flex-col">
+        @yield('header')
+        @yield('main')
+    </div>
 @endsection

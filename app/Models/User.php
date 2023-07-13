@@ -3,9 +3,12 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+
 use App\Enums\UserRole;
 use App\Models\Transaction;
+use App\Enums\TransactionType;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -50,6 +53,18 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public function subtractMoney($amount): void
+    {
+        $this->balance = $this->balance - $amount;
+        $this->save();
+    }
+
+    public function addMoney($amount): void
+    {
+        $this->balance = $this->balance + $amount;
+        $this->save();
+    }
+
     public function checks(): HasMany
     {
         return $this->hasMany(Check::class);
@@ -60,13 +75,42 @@ class User extends Authenticatable
         return $this->hasMany(Transaction::class);
     }
 
-    public function transactionsCount()
+    public function scopeIncomes()
     {
-        return $this->transactions()->count();
+        return $this->transactions()
+                    ->where('type_id', TransactionType::INCOME);
+    }
+
+    public function scopeExpenses()
+    {
+        return $this->transactions()
+                    ->where('type_id', TransactionType::EXPENSE);
+    }
+
+    public function incomesSum()
+    {
+        return $this->incomes()
+                    ->sum('amount');
+    }
+
+    public function expensesSum()
+    {
+        return $this->expenses()
+                    ->sum('amount');
+    }
+
+    public function haveEnoughMoney($amount): bool
+    {
+        return $this->balance > $amount;
     }
 
     public function isAdmin()
     {
         return $this->role_id === UserRole::ADMINISTRATOR;
+    }
+
+    public function isCustomer()
+    {
+        return $this->role_id === UserRole::CUSTOMER;
     }
 }

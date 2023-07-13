@@ -32,7 +32,11 @@ class CustomerTest extends TestCase
             'password_confirmation' => $password,
         ]);
 
-        $response->assertStatus(201);
+        $this->assertDatabaseHas('users', [
+            'email' => 'john_doe@example.com'
+        ]);
+
+        $response->assertStatus(302);
     }
 
     /**
@@ -88,11 +92,36 @@ class CustomerTest extends TestCase
         $response = $this->actingAs($user)->post('/purchases',
         [
             'description' => "Grandmas's Gift",
+            'amount' => 5000,
+            'date' => Carbon::now(),
+        ]);
+
+        $response->assertStatus(201);
+    }
+
+    /**
+     * A user can only buy something if she has enough money to cover the cost.
+     */
+    public function test_an_user_can_not_buy_something_if_have_not_enough_money(): void
+    {
+        $user = User::factory()->create(['balance' => 10000]);
+
+        $response = $this->actingAs($user)->post('/purchases',
+        [
+            'description' => "Grandmas's Gift",
             'amount' => 30000,
             'date' => Carbon::now(),
         ]);
 
         $response->assertStatus(302);
+    }
+
+    /**
+     * To buy something, the user enters the amount and description; a user can only buy something if she has enough money to cover the cost.
+     */
+    public function test_when_an_user_buys_something_the_balance_is_subtracted(): void
+    {
+        $user = User::factory()->create(['balance' => 10000]);
 
         $response = $this->actingAs($user)->post('/purchases',
         [
@@ -101,7 +130,10 @@ class CustomerTest extends TestCase
             'date' => Carbon::now(),
         ]);
 
-        $response->assertStatus(201);
+        $this->assertDatabaseHas('users', [
+            'email' => $user->email,
+            'balance' => 5000
+        ]);
     }
 
     /**
