@@ -1,5 +1,6 @@
 <script setup>
 import { ref, reactive, watch } from 'vue'
+import { vMaska } from "maska"
 
 const processing = ref(false)
 const description = ref('')
@@ -72,7 +73,15 @@ const send  = () => {
                             </svg>
                             <span class="uppercase">Amount</span>
                         </label>
-                        <input class="px-7 py-3" type="text" name="" id="" v-model="amount" autofocus>
+                        <input
+                            class="px-7 py-3"
+                            type="text"
+                            v-model="amount"
+                            v-maska
+                            data-maska="0.99"
+                            data-maska-tokens="0:\d:multiple|9:\d:optional"
+                            autofocus
+                        >
                         <span class="text-red-500 px-3 py-1 text-xs font-semibold">{{ errors.amount }}</span>
                     </div>
                     <span>USD</span>
