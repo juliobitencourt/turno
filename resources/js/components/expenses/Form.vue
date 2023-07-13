@@ -1,5 +1,7 @@
 <script setup>
 import { ref, reactive } from 'vue'
+import VueDatePicker from '@vuepic/vue-datepicker';
+import '@vuepic/vue-datepicker/dist/main.css'
 
 const processing = ref(false)
 const amount = ref(null)
@@ -77,7 +79,7 @@ const send = () => {
                             </svg>
                             <span class="uppercase">Date</span>
                         </label>
-                        <input class="px-7 py-3" type="text" name="" id="" v-model="date">
+                        <VueDatePicker v-model="date" locale="pt" select-text="Selecionar" cancel-text="Cancelar" format="MM/dd/yyyy"></VueDatePicker>
                         <span class="text-red-500 px-3 py-1 text-xs font-semibold">{{ errors.date }}</span>
                     </div>
                 </div>
