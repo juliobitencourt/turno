@@ -3,9 +3,9 @@
 use App\Http\Middleware\UserIsAdmin;
 use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\UserIsCustomer;
-use App\Http\Controllers\HomeController;
-use App\Http\Controllers\CheckController;
-use App\Http\Controllers\ExpenseController;
+use App\Http\Controllers\Customer\HomeController;
+use App\Http\Controllers\Customer\CheckController;
+use App\Http\Controllers\Customer\ExpenseController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\UserRegisterController;

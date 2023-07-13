@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Customer;
 
-use App\Enums\CheckStatus;
 use App\Models\Check;
+use App\Enums\CheckStatus;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
 class CheckController extends Controller
@@ -24,7 +25,7 @@ class CheckController extends Controller
             ];
         })->toArray();
 
-        return view('checks', compact('checks'));
+        return view('customer.checks-list', compact('checks'));
     }
 
     /**
@@ -32,7 +33,7 @@ class CheckController extends Controller
      */
     public function create()
     {
-        return view('checks-form');
+        return view('customer.checks-form');
     }
 
     public function store(Request $request): Check

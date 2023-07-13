@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Customer;
 
 use Illuminate\Http\Request;
 use App\Enums\TransactionType;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
 class ExpenseController extends Controller
@@ -15,7 +16,7 @@ class ExpenseController extends Controller
     {
         $expenses = Auth::user()->expenses()->get()->toArray();
 
-        return view('expenses', compact('expenses'));
+        return view('customer.expenses-list', compact('expenses'));
     }
 
     /**
@@ -23,7 +24,7 @@ class ExpenseController extends Controller
      */
     public function create()
     {
-        return view('expenses-form');
+        return view('customer.expenses-form');
     }
 
     /**

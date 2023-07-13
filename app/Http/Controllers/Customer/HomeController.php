@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Customer;
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
@@ -16,7 +17,7 @@ class HomeController extends Controller
             $month = date('m');
         }
 
-        return view('home', [
+        return view('customer.home', [
             'balance' => Auth::user()->balance,
             'incomes' => Auth::user()->incomesSum(),
             'expenses' => abs(Auth::user()->expensesSum()),
