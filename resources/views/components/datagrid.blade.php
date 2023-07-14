@@ -1,4 +1,4 @@
-<div class="m-6">
+<div class="w-full m-6">
     {{ $slot }}
 
     @if (count($list) === 0)

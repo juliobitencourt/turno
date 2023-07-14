@@ -69,7 +69,7 @@ const send  = () => {
 <template>
     <div>
         <form @submit.prevent="send" enctype="multipart/form-data">
-            <div class="flex-1 p-6 text-blue-500 flex flex-col gap-8">
+            <div class="mx-auto lg:w-3/6 flex-1 p-6 text-blue-500 flex flex-col gap-8">
                 <div class="flex items-center gap-6">
                     <div class="flex-1 border-b flex flex-col">
                         <label for="amount" class="flex items-center gap-2 text-blue-300 text-xs">
@@ -135,7 +135,7 @@ const send  = () => {
                     >Remove</button>
                 </div>
             </div>
-            <div class="p-6">
+            <div class="mx-auto lg:w-3/6 p-6">
                 <input
                     :disabled="processing"
                     class="rounded bg-blue-500 hover:bg-blue-600 cursor-pointer w-full mt-6 text-center text-white p-4 uppercase font-bold text-sm transition-all"

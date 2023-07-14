@@ -5,14 +5,14 @@
 @endsection
 @section('main')
     <div class="bg-blue-500 p-6 text-white font-bold text-xl">
-        <div class="max-w-7xl mx-auto lg:w-2/6">
+        <div class="max-w-7xl mx-auto lg:w-3/6">
             <div class="flex-1 flex flex-col">
                 <span>Current Balance</span>
                 <span>${{ $balance }}</span>
             </div>
         </div>
     </div>
-    <div class="max-w-7xl mx-auto w-full  lg:w-2/6 relative bg-white dark:bg-gray-900 selection:bg-green-500 selection:text-white text-blue-500">
+    <div class="max-w-7xl mx-auto w-full lg:w-3/6 relative bg-white dark:bg-gray-900 selection:bg-green-500 selection:text-white text-blue-500">
         <div class="p-6 flex items-center bg-blue-100">
             <div class="flex-1 flex flex-col">
                 <strong>Incomes</strong>

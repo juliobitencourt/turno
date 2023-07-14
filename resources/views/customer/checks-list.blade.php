@@ -4,14 +4,14 @@
     <x-header title="Checks"/>
 @endsection
 @section('main')
-    <div class="relative sm:flex sm:justify-center sm:items-center bg-white dark:bg-gray-900 selection:bg-green-500 selection:text-white text-blue-500">
+    <div class="mx-auto lg:w-3/6 flex flex-col relative sm:flex sm:justify-center sm:items-center bg-white dark:bg-gray-900 selection:bg-green-500 selection:text-white text-blue-500">
         <TabGroup>
-            <TabList class="flex justify-between bg-blue-50 px-6 pt-4">
+            <TabList class="w-full flex justify-between bg-blue-50 px-6 pt-4">
                 <Tab class="text-sm uppercase pb-2 border-b-2">Pending</Tab>
                 <Tab class="text-sm uppercase pb-2 border-b-2">Accepted</Tab>
                 <Tab class="text-sm uppercase pb-2 border-b-2">Rejected</Tab>
             </TabList>
-            <TabPanels>
+            <TabPanels class="w-full">
                 <TabPanel>
                     <x-datagrid :list="$checks"/>
                 </TabPanel>

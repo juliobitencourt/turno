@@ -11,7 +11,7 @@
             'text-xl'
         ])
     >
-        <div class="max-w-7xl mx-auto lg:w-2/6 flex items-center">
+        <div class="max-w-7xl mx-auto lg:w-3/6 flex items-center">
             <globalnav :open="true"></globalnav>
             <span class="text-center w-full uppercase">{{ $title }}</span>
             @auth

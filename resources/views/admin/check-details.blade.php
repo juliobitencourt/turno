@@ -4,7 +4,7 @@
     <x-header title="Check Details"/>
 @endsection
 @section('main')
-    <div class="flex-1 p-6 flex flex-col gap-6 relative sm:flex sm:justify-center sm:items-center bg-white dark:bg-gray-900 selection:bg-green-500 selection:text-white text-blue-500">
+    <div class="mx-auto w-full lg:w-3/6 flex-1 p-6 flex flex-col gap-6 relative sm:flex bg-white dark:bg-gray-900 selection:bg-green-500 selection:text-white text-blue-500">
         <div class="flex flex-col">
             <span class="uppercase text-xs text-blue-400">Customer</span>
             <span class="text-blue-700 font-semibold">{{ $check->user->name }}</span>
@@ -25,7 +25,7 @@
             <img width="350" src="{{ route('admin.check-image', ['filename' => $check->filename]) }}" alt="Check Image">
         </div>
     </div>
-    <div class="p-6 text-blue-500 flex gap-4">
+    <div class="mx-auto w-full lg:w-3/6 p-6 text-blue-500 flex gap-4">
         <rejectcheck :check="{{ $check }}"></rejectcheck>
         <acceptcheck :check="{{ $check }}"></acceptcheck>
     </div>
