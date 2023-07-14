@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('checks', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->foreignId('user_id')->nullable()->constrained('users');
-            $table->integer('status_id');
+            $table->integer('status_id')->nullable();
             $table->string('description');
             $table->bigInteger('amount');
             $table->string('filename');
