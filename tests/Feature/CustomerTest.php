@@ -66,14 +66,16 @@ class CustomerTest extends TestCase
      */
     public function test_an_user_can_deposit_more_money_to_his_account(): void
     {
+        $this->withoutExceptionHandling();
+
         $user = User::factory()->create();
 
         $file = UploadedFile::fake()->image('check.jpg');
 
-        $response = $this->actingAs($user)->post('/checks',
+        $response = $this->actingAs($user)->post('/checks/new',
         [
             'description' => "Grandmas's Gift",
-            'amount' => 30000,
+            'amount' => 300.00,
             'file' => $file,
         ]);
 
@@ -87,9 +89,11 @@ class CustomerTest extends TestCase
      */
     public function test_an_user_can_buy_something(): void
     {
+        $this->withoutExceptionHandling();
+
         $user = User::factory()->create(['balance' => 10000]);
 
-        $response = $this->actingAs($user)->post('/purchases',
+        $response = $this->actingAs($user)->post('/expenses/new',
         [
             'description' => "Grandmas's Gift",
             'amount' => 5000,
@@ -104,16 +108,18 @@ class CustomerTest extends TestCase
      */
     public function test_an_user_can_not_buy_something_if_have_not_enough_money(): void
     {
+        $this->withoutExceptionHandling();
+
         $user = User::factory()->create(['balance' => 10000]);
 
-        $response = $this->actingAs($user)->post('/purchases',
+        $response = $this->actingAs($user)->post('/expenses/new',
         [
             'description' => "Grandmas's Gift",
             'amount' => 30000,
             'date' => Carbon::now(),
         ]);
 
-        $response->assertStatus(302);
+        $response->assertStatus(422);
     }
 
     /**
@@ -121,18 +127,20 @@ class CustomerTest extends TestCase
      */
     public function test_when_an_user_buys_something_the_balance_is_subtracted(): void
     {
+        $this->withoutExceptionHandling();
+
         $user = User::factory()->create(['balance' => 10000]);
 
-        $response = $this->actingAs($user)->post('/purchases',
+        $response = $this->actingAs($user)->post('/expenses/new',
         [
             'description' => "Grandmas's Gift",
-            'amount' => 5000,
+            'amount' => 5000.00,
             'date' => Carbon::now(),
         ]);
 
         $this->assertDatabaseHas('users', [
             'email' => $user->email,
-            'balance' => 5000
+            'balance' => 500000
         ]);
     }
 
@@ -141,7 +149,10 @@ class CustomerTest extends TestCase
      */
     public function test_an_user_can_see_a_list_of_balance_changes(): void
     {
+        $this->withoutExceptionHandling();
+
         $user = User::factory()->create(['balance' => 10000]);
+
         $transactionOne = Transaction::factory()->create([
             'user_id' => $user,
             'type_id' => TransactionType::EXPENSE,
@@ -161,8 +172,9 @@ class CustomerTest extends TestCase
         $response = $this->actingAs($user)->get('/expenses');
 
         $response->assertStatus(200);
-        $response->assertJsonFragment(['description' => 'T-shirt', 'amount' => $transactionOne->amount]);
-        $response->assertJsonFragment(['description' => 'Groceries', 'amount' => $transactionTwo->amount]);
+
+        $response->assertSee($transactionOne->description);
+        $response->assertSee($transactionTwo->description);
     }
 
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Enums\UserRole;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class UserRegisterController extends Controller
@@ -21,12 +22,16 @@ class UserRegisterController extends Controller
             'password' => ['required', 'string', 'confirmed'],
         ]);
 
-        return User::create([
+        $user = User::create([
             'role_id' => UserRole::CUSTOMER,
             'username' => $request['username'],
             'name' => $request['name'],
             'email' => $request['email'],
             'password' => Hash::make($request['password']),
         ]);
+
+        Auth::login($user);
+
+        return redirect(route('home'));
     }
 }

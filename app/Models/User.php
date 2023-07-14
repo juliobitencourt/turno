@@ -8,8 +8,9 @@ use App\Enums\UserRole;
 use App\Models\Transaction;
 use App\Enums\TransactionType;
 use Laravel\Sanctum\HasApiTokens;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -53,6 +54,17 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    /**
+     * The amount number accessor and mutator.
+     */
+    protected function balance(): Attribute
+    {
+        return Attribute::make(
+            get: fn (string $value) => number_format($value/100, 2, '.', ''),
+            set: fn (mixed $value) => $value * 100,
+        );
+    }
+
     public function subtractMoney($amount): void
     {
         $this->balance = $this->balance - $amount;
@@ -89,14 +101,20 @@ class User extends Authenticatable
 
     public function incomesSum()
     {
-        return $this->incomes()
+        $incomes = $this->incomes()
                     ->sum('amount');
+
+        $incomes = abs($incomes);
+
+        return number_format($incomes / 100, 2, '.', '');
     }
 
     public function expensesSum()
     {
-        return $this->expenses()
+        $expenses = $this->expenses()
                     ->sum('amount');
+
+        return number_format($expenses / 100, 2, '.', '');
     }
 
     public function haveEnoughMoney($amount): bool

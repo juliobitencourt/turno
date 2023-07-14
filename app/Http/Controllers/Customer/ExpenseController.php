@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Customer;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Enums\TransactionType;
 use App\Http\Controllers\Controller;
@@ -33,12 +34,10 @@ class ExpenseController extends Controller
     public function store(Request $request)
     {
         $v = $request->validate([
-            'amount' => ['required', 'integer'],
+            'amount' => ['required', 'numeric'],
             'date' => ['required', 'date'],
             'description' => ['required', 'string', 'max:255'],
         ]);
-
-        dd($v);
 
         if (Auth::user()->haveEnoughMoney($request->amount) === false) {
             return response()->json([
@@ -48,13 +47,15 @@ class ExpenseController extends Controller
             ], 422); // Unprocessable Entity status code
         }
 
-        return Auth::user()->transactions()->create([
+        $expense = Auth::user()->transactions()->create([
             'type_id' => TransactionType::EXPENSE,
             'description' => $request->description,
             'amount' => $request->amount,
-            'date' => $request->date,
+            'date' => Carbon::parse($request->date)->toDateTimeString(),
         ]);
 
-        Auth::user()->subtractBalance($request->amount);
+        Auth::user()->subtractMoney($request->amount);
+
+        return $expense;
     }
 }

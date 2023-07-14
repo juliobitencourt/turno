@@ -20,7 +20,7 @@ class HomeController extends Controller
         return view('customer.home', [
             'balance' => Auth::user()->balance,
             'incomes' => Auth::user()->incomesSum(),
-            'expenses' => abs(Auth::user()->expensesSum()),
+            'expenses' => Auth::user()->expensesSum(),
             'transactions' => Auth::user()->transactions()->get()->toArray()
         ]);
     }

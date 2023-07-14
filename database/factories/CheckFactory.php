@@ -23,7 +23,7 @@ class CheckFactory extends Factory
             'status_id' => CheckStatus::ACCEPTED,
             'description' => $this->faker->sentence,
             'amount' => '0',
-            'filename' => $this->faker->string(),
+            'filename' => 'filename.jpg',
         ];
     }
 }
