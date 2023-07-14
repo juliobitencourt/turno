@@ -32,11 +32,13 @@ class ExpenseController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
+        $v = $request->validate([
             'amount' => ['required', 'integer'],
             'date' => ['required', 'date'],
             'description' => ['required', 'string', 'max:255'],
         ]);
+
+        dd($v);
 
         if (Auth::user()->haveEnoughMoney($request->amount) === false) {
             return response()->json([

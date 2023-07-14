@@ -40,7 +40,7 @@ class CheckController extends Controller
     {
         $request->validate([
             'description' => ['required', 'string', 'max:255'],
-            'amount' => ['required', 'integer'],
+            'amount' => ['required', 'numeric'],
             'file' => ['required'],
         ]);
 

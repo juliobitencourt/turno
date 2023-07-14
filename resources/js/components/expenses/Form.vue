@@ -21,6 +21,11 @@ const resetErrors = () => {
     errors.description = ''
 }
 
+const formatAmount = () => {
+    let number = amount.value
+    amount.value = Number(number).toFixed(2)
+}
+
 const send = () => {
     processing.value = true
     resetErrors()
@@ -73,6 +78,7 @@ const send = () => {
                             v-maska
                             data-maska="0.99"
                             data-maska-tokens="0:\d:multiple|9:\d:optional"
+                            @blur="formatAmount"
                             autofocus
                         >
                         <span class="text-red-500 px-3 py-1 text-xs font-semibold">{{ errors.amount }}</span>
