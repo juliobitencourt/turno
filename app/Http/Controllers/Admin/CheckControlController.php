@@ -19,7 +19,8 @@ class CheckControlController extends Controller
             return [
                 'description' => $check->user->name,
                 'amount' => $check->amount,
-                'date' => $check->created_at
+                'date' => $check->created_at,
+                'link' => route('admin.checks.show', $check)
             ];
         })->toArray();
 
