@@ -4,13 +4,15 @@
     <x-header title="BNB Bank"/>
 @endsection
 @section('main')
-    <div class="bg-blue-500 p-6 text-white font-bold text-xl flex">
-        <div class="flex-1 flex flex-col">
-            <span>Current Balance</span>
-            <span>${{ $balance }}</span>
+    <div class="bg-blue-500 p-6 text-white font-bold text-xl">
+        <div class="max-w-7xl mx-auto lg:w-2/6">
+            <div class="flex-1 flex flex-col">
+                <span>Current Balance</span>
+                <span>${{ $balance }}</span>
+            </div>
         </div>
     </div>
-    <div class="relative sm:flex sm:justify-center sm:items-center bg-white dark:bg-gray-900 selection:bg-green-500 selection:text-white text-blue-500">
+    <div class="max-w-7xl mx-auto w-full  lg:w-2/6 relative bg-white dark:bg-gray-900 selection:bg-green-500 selection:text-white text-blue-500">
         <div class="p-6 flex items-center bg-blue-100">
             <div class="flex-1 flex flex-col">
                 <strong>Incomes</strong>
@@ -35,7 +37,6 @@
                 <span class="text-xs uppercase">Purchase</span>
             </a>
         </div>
-
         <x-datagrid :list="$transactions">
             <h1 class="my-3 uppercase">Transactions</h1>
         </x-datagrid>
