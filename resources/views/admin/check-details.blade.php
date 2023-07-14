@@ -27,6 +27,7 @@
     </div>
     <div class="mx-auto w-full lg:w-3/6 p-6 text-blue-500 flex gap-4">
         <rejectcheck :check="{{ $check }}"></rejectcheck>
-        <acceptcheck :check="{{ $check }}"></acceptcheck>
+        {{ $check->isAccepted() }}
+        <acceptcheck :disabled="{{ $check->isAccepted()}}" :check="{{ $check }}"></acceptcheck>
     </div>
 @endsection

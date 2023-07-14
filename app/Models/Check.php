@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\CheckStatus;
 use App\Models\User;
 use App\Enums\UserRole;
 use Illuminate\Database\Eloquent\Model;
