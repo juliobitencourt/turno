@@ -21,8 +21,8 @@
             <span class="uppercase text-xs text-blue-400">Reported Amount</span>
             <span class="text-blue-700 font-semibold">{{ $check->amount }}</span>
         </div>
-        <div class="flex flex-col">
-            <img src="{{ $check->filename }}" title="{{ $check->user->name }}"/>
+        <div class="flex justify-center">
+            <img width="350" src="{{ route('admin.check-image', ['filename' => $check->filename]) }}" alt="Check Image">
         </div>
     </div>
     <div class="p-6 text-blue-500 flex gap-4">

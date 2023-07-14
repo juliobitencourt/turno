@@ -12,6 +12,7 @@ use App\Http\Controllers\UserRegisterController;
 use App\Http\Controllers\Admin\AcceptCheckController;
 use App\Http\Controllers\Admin\RejectCheckController;
 use App\Http\Controllers\Admin\CheckControlController;
+use App\Http\Controllers\Admin\ImageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -68,5 +69,6 @@ Route::middleware([
         Route::get('/{check}', [CheckControlController::class, 'show'])->name('admin.checks.show');
         Route::put('/reject/{check}', RejectCheckController::class)->name('admin.reject-check');
         Route::put('/accept/{check}', AcceptCheckController::class)->name('admin.accept-check');
+        Route::get('/images/{filename}', ImageController::class)->name('admin.check-image');
     });
 });
