@@ -22,10 +22,12 @@ class CustomerTest extends TestCase
      */
     public function test_an_user_can_create_a_new_account_with_username_and_password(): void
     {
+        $this->withoutExceptionHandling();
+
         $password = Hash::make('123456');
 
         $response = $this->post('/register', [
-            'username' => 'john_doe',
+            'username' => 'john_doe-123',
             'name' => 'John Doe',
             'email' => 'john_doe@example.com',
             'password' => $password,
