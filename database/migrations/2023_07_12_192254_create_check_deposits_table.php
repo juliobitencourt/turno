@@ -1,8 +1,9 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
+use App\Enums\CheckDepositStatus;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
 
 return new class extends Migration
 {
@@ -11,13 +12,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('checks', function (Blueprint $table) {
+        Schema::create('check_deposits', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->foreignId('user_id')->nullable()->constrained('users');
-            $table->integer('status_id')->nullable();
+            $table->string('status')->default(CheckDepositStatus::PENDING->value);
             $table->string('description');
             $table->bigInteger('amount');
-            $table->string('filename');
+            $table->string('picture');
             $table->softDeletes();
             $table->timestamps();
         });
@@ -28,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('checks');
+        Schema::dropIfExists('check_deposits');
     }
 };

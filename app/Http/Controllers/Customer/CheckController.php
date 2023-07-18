@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Customer;
 
-use App\Models\Check;
+use App\Models\CheckDeposit;
 use App\Enums\CheckStatus;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;

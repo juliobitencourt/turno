@@ -3,18 +3,18 @@
 namespace App\Domain\Repositories;
 
 use App\Domain\Interfaces\CheckRepositoryInterface;
-use App\Models\Check;
+use App\Models\CheckDeposit;
 
 class CheckRepository implements CheckRepositoryInterface
 {
     public function getAllChecks()
     {
-        return Check::all();
+        return CheckDeposit::all();
     }
 
     public function getChecksByCustomer(string $customerId)
     {
-        return Check::where('user_id', $customerId)->get();
+        return CheckDeposit::where('user_id', $customerId)->get();
     }
 
     public function getCheckById(string $checkId)
@@ -24,7 +24,7 @@ class CheckRepository implements CheckRepositoryInterface
 
     public function createCheck(array $checkDetails)
     {
-        return Check::create([
+        return CheckDeposit::create([
             'user_id' => $checkDetails['user_id'],
             'description' => $checkDetails['description'],
             'amount' => $checkDetails['amount'],

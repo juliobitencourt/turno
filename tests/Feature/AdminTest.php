@@ -2,12 +2,11 @@
 
 namespace Tests\Feature;
 
-use Carbon\Carbon;
 use Tests\TestCase;
 use App\Models\User;
-use App\Models\Check;
+use App\Models\CheckDeposit;
 use App\Enums\UserRole;
-use App\Enums\CheckStatus;
+use App\Enums\CheckDepositStatus;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -20,7 +19,7 @@ class AdminTest extends TestCase
     */
     public function test_an_admin_can_not_be_also_a_customer(): void
     {
-        $user = User::factory()->create(['role_id' => UserRole::ADMINISTRATOR]);
+        $user = User::factory()->create(['role' => UserRole::ADMIN]);
 
         $response = $this->actingAs($user)->get('/home');
 
@@ -34,19 +33,19 @@ class AdminTest extends TestCase
     {
         $this->withoutExceptionHandling();
 
-        $admin = User::factory()->create(['role_id' => UserRole::ADMINISTRATOR]);
-        $user = User::factory()->create(['role_id' => UserRole::CUSTOMER]);
+        $admin = User::factory()->create(['role' => UserRole::ADMIN]);
+        $user = User::factory()->create(['role' => UserRole::CUSTOMER]);
 
-        $checkOne = Check::factory()->create([
+        $checkOne = CheckDeposit::factory()->create([
             'user_id' => $user,
-            'status_id' => CheckStatus::ACCEPTED,
+            'status' => CheckDepositStatus::APPROVED,
             'description' => 'May Payment',
             'amount' => 50,
         ]);
 
-        $checkTwo = Check::factory()->create([
+        $checkTwo = CheckDeposit::factory()->create([
             'user_id' => $user,
-            'status_id' => CheckStatus::ACCEPTED,
+            'status' => CheckDepositStatus::APPROVED,
             'description' => 'June Payment',
             'amount' => 100,
         ]);
@@ -68,10 +67,10 @@ class AdminTest extends TestCase
     {
         $this->withoutExceptionHandling();
 
-        $admin = User::factory()->create(['role_id' => UserRole::ADMINISTRATOR]);
-        $user = User::factory()->create(['role_id' => UserRole::CUSTOMER, 'balance' => 10000]);
+        $admin = User::factory()->create(['role' => UserRole::ADMIN]);
+        $user = User::factory()->create(['role' => UserRole::CUSTOMER, 'balance' => 10000]);
 
-        $check = Check::factory()->create([
+        $check = CheckDeposity::factory()->create([
             'user_id' => $user,
             'description' => 'May Payment',
             'amount' => 10000,

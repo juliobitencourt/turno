@@ -25,7 +25,7 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'role_id',
+        'role',
         'name',
         'username',
         'email',
@@ -50,7 +50,7 @@ class User extends Authenticatable
      * @var array<string, string>
      */
     protected $casts = [
-        'role_id' => UserRole::class,
+        'role' => UserRole::class,
         'email_verified_at' => 'datetime',
     ];
 
@@ -79,7 +79,7 @@ class User extends Authenticatable
 
     public function checks(): HasMany
     {
-        return $this->hasMany(Check::class);
+        return $this->hasMany(CheckDeposit::class);
     }
 
     public function transactions(): HasMany
@@ -90,13 +90,13 @@ class User extends Authenticatable
     public function scopeIncomes()
     {
         return $this->transactions()
-                    ->where('type_id', TransactionType::INCOME);
+                    ->where('type_id', TransactionType::DEPOSIT);
     }
 
     public function scopeExpenses()
     {
         return $this->transactions()
-                    ->where('type_id', TransactionType::EXPENSE);
+                    ->where('type_id', TransactionType::WITHDRAWAL);
     }
 
     public function incomesSum()
@@ -124,11 +124,11 @@ class User extends Authenticatable
 
     public function isAdmin()
     {
-        return $this->role_id === UserRole::ADMINISTRATOR;
+        return $this->role === UserRole::ADMIN;
     }
 
     public function isCustomer()
     {
-        return $this->role_id === UserRole::CUSTOMER;
+        return $this->role === UserRole::CUSTOMER;
     }
 }

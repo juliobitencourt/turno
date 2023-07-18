@@ -2,14 +2,14 @@
 
 namespace Database\Factories;
 
-use App\Enums\CheckStatus;
+use App\Enums\CheckDepositStatus;
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Check>
  */
-class CheckFactory extends Factory
+class CheckDepositFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -20,10 +20,10 @@ class CheckFactory extends Factory
     {
         return [
             'id' => (string) Str::uuid(),
-            'status_id' => CheckStatus::ACCEPTED,
+            'status' => CheckDepositStatus::APPROVED,
             'description' => $this->faker->sentence,
             'amount' => '0',
-            'filename' => 'filename.jpg',
+            'picture' => 'filename.jpg',
         ];
     }
 }

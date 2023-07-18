@@ -20,7 +20,7 @@ class TransactionFactory extends Factory
     {
         return [
             'id' => (string) Str::uuid(),
-            'type_id' => TransactionType::INCOME,
+            'type_id' => TransactionType::DEPOSIT,
             'description' => $this->faker->sentence,
             'amount' => '0',
         ];

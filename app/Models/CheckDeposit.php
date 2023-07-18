@@ -2,9 +2,10 @@
 
 namespace App\Models;
 
-use App\Enums\CheckStatus;
+use App\Enums\CheckDepositStatus;
 use App\Models\User;
 use App\Enums\UserRole;
+use App\Traits\HasAmount;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Casts\Attribute;
@@ -12,9 +13,9 @@ use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Check extends Model
+class CheckDeposit extends Model
 {
-    use HasFactory, SoftDeletes, HasUuids;
+    use HasFactory, SoftDeletes, HasUuids, HasAmount;
 
     /**
      * The attributes that are mass assignable.
@@ -22,7 +23,7 @@ class Check extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'status_id',
+        'status',
         'description',
         'amount',
         'filename',
@@ -34,19 +35,8 @@ class Check extends Model
      * @var array<string, string>
      */
     protected $casts = [
-        'status_id' => UserRole::class,
+        'status' => UserRole::class,
     ];
-
-    /**
-     * The amount number accessor and mutator.
-     */
-    protected function amount(): Attribute
-    {
-        return Attribute::make(
-            get: fn (string $value) => number_format($value/100, 2, '.', ''),
-            set: fn (mixed $value) => $value * 100,
-        );
-    }
 
     public function user(): BelongsTo
     {

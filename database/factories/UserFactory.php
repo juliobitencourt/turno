@@ -19,7 +19,7 @@ class UserFactory extends Factory
     public function definition(): array
     {
         return [
-            'role_id' => UserRole::CUSTOMER,
+            'role' => UserRole::CUSTOMER,
             'username' => fake()->slug(),
             'name' => fake()->name(),
             'email' => fake()->unique()->safeEmail(),

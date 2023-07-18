@@ -2,10 +2,12 @@
 
 namespace App\Enums;
 
-enum TransactionType: int
-{
-    use EnumsTrait;
+use App\Traits\Enums;
 
-    case INCOME = 1;
-    case EXPENSE = 2;
+enum TransactionType: string
+{
+    use Enums;
+
+    case DEPOSIT = 'deposit';
+    case WITHDRAWAL = 'withdrawal';
 }

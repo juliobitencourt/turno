@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Enums;
+namespace App\Traits;
 
-trait EnumsTrait
+trait Enums
 {
     public static function names(): array
     {

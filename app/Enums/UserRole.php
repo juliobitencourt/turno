@@ -2,10 +2,12 @@
 
 namespace App\Enums;
 
-enum UserRole: int
-{
-    use EnumsTrait;
+use App\Traits\Enums;
 
-    case ADMINISTRATOR = 1;
-    case CUSTOMER = 2;
+enum UserRole: string
+{
+    use Enums;
+
+    case ADMIN = 'admin';
+    case CUSTOMER = 'customer';
 }

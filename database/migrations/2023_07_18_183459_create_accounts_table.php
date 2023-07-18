@@ -1,9 +1,8 @@
 <?php
 
-use App\Enums\TransactionType;
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
@@ -12,13 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('transactions', function (Blueprint $table) {
+        Schema::create('accounts', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->foreignId('user_id')->nullable()->constrained('users');
-            $table->string('type')->default(TransactionType::DEPOSIT->value);
-            $table->string('description');
-            $table->bigInteger('amount');
-            $table->timestamp('date');
+            $table->bigInteger('balance')->default(0);
             $table->softDeletes();
             $table->timestamps();
         });
@@ -29,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('transactions');
+        Schema::dropIfExists('accounts');
     }
 };

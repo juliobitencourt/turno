@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\Check;
+use App\Models\CheckDeposit;
 use App\Http\Controllers\Controller;
 use App\Domain\Interfaces\RejectCheckRepositoryInterface;
 

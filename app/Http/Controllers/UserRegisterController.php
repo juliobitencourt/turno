@@ -23,7 +23,7 @@ class UserRegisterController extends Controller
         ]);
 
         $user = User::create([
-            'role_id' => UserRole::CUSTOMER,
+            'role' => UserRole::CUSTOMER,
             'username' => $request['username'],
             'name' => $request['name'],
             'email' => $request['email'],
