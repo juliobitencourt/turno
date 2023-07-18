@@ -14,8 +14,8 @@ return new class extends Migration
     {
         Schema::create('transactions', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->foreignId('user_id')->nullable()->constrained('users');
-            $table->string('type')->default(TransactionType::DEPOSIT->value);
+            $table->foreignId('user_id')->constrained('users');
+            $table->string('type')->default(TransactionType::DEPOSIT->value)->index();
             $table->string('description');
             $table->bigInteger('amount');
             $table->timestamp('date');

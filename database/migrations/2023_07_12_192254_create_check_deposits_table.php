@@ -15,7 +15,7 @@ return new class extends Migration
         Schema::create('check_deposits', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->foreignId('user_id')->nullable()->constrained('users');
-            $table->string('status')->default(CheckDepositStatus::PENDING->value);
+            $table->string('status')->default(CheckDepositStatus::PENDING->value)->index();
             $table->string('description');
             $table->bigInteger('amount');
             $table->string('picture');
