@@ -7,15 +7,22 @@ use App\Enums\CheckStatus;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use App\Domain\Repositories\CheckRepository;
+use App\Domain\Interfaces\CheckRepositoryInterface;
 
 class CheckController extends Controller
 {
+    public function __construct(
+        private CheckRepositoryInterface $checkRepository
+    )
+    {}
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $checks = Auth::user()->checks()->get();
+        $checks = $this->checkRepository->getChecksByCustomer(Auth::user()->id);
 
         $checks = $checks->map(function ($check) {
             return [
@@ -38,21 +45,19 @@ class CheckController extends Controller
 
     public function store(Request $request): Check
     {
-        $request->validate([
+        $validatedData = $request->validate([
             'description' => ['required', 'string', 'max:255'],
             'amount' => ['required', 'numeric'],
             'file' => ['required'],
         ]);
 
-        $path = $request->file('file')->store();
+        $filename = $request->file('file')->store();
 
-        $check = Auth::user()->checks()->create([
-            'status_id' => CheckStatus::REJECTED,
-            'description' => $request['description'],
-            'amount' => $request['amount'],
-            'filename' => $path,
+        return $this->checkRepository->createCheck([
+            'user_id' => Auth::user()->id,
+            'description' => $validatedData['description'],
+            'amount' => $validatedData['amount'],
+            'filename' => $filename,
         ]);
-
-        return $check;
     }
 }
