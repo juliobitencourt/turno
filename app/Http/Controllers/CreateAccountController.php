@@ -3,11 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Domain\Account\Interfaces\AccountRepositoryInterface;
+use App\Domain\User\Customer\Repositories\CustomerRepository;
+use App\Domain\User\DTO\UserData;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use App\Domain\User\DTO\UserData;
-use App\Domain\User\Customer\Repositories\CustomerRepository;
 
 class CreateAccountController extends Controller
 {
@@ -17,8 +17,7 @@ class CreateAccountController extends Controller
     public function __invoke(
         Request $request,
         AccountRepositoryInterface $accountRepository
-    )
-    {
+    ) {
         $validated = $request->validate([
             'username' => ['required', 'string', 'lowercase', 'alpha_dash:ascii', 'max:255', 'unique:users'],
             'name' => ['required', 'string', 'max:255'],

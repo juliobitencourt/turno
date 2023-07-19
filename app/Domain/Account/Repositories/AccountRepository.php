@@ -2,8 +2,8 @@
 
 namespace App\Domain\Account\Repositories;
 
-use App\Models\Account;
 use App\Domain\Account\Interfaces\AccountRepositoryInterface;
+use App\Models\Account;
 
 class AccountRepository implements AccountRepositoryInterface
 {
@@ -11,14 +11,20 @@ class AccountRepository implements AccountRepositoryInterface
     {
         Account::create([
             'user_id' => $id,
-            'balance' => 0
+            'balance' => 0,
         ]);
     }
 
     public function hasBalance(string $accountId, int $amount): bool
     {
         $account = Account::find($accountId);
+
         return $account->balance >= $amount;
+    }
+
+    public function getBalance(string $accountId): int
+    {
+        return Account::find($accountId)->balance;
     }
 
     public function incrementAccountBalance(string $accountId, int $amount): void

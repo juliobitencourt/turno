@@ -2,14 +2,13 @@
 
 namespace Tests\Feature;
 
-use Tests\TestCase;
-use App\Models\User;
+use App\Enums\CheckDepositStatus;
 use App\Enums\UserRole;
 use App\Models\Account;
 use App\Models\CheckDeposit;
-use App\Enums\CheckDepositStatus;
-use Illuminate\Foundation\Testing\WithFaker;
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
 
 class AdminTest extends TestCase
 {
@@ -60,7 +59,6 @@ class AdminTest extends TestCase
         $response->assertSee('100.00');
     }
 
-
     /*
     * An admin can see a list of pending check deposit pictures with amount and picture and click to approve or deny the deposit.
     */
@@ -78,13 +76,13 @@ class AdminTest extends TestCase
             'amount' => 1000000,
         ]);
 
-        $response = $this->actingAs($admin)->put('/admin/checks/accept/' . $check->id);
+        $response = $this->actingAs($admin)->put('/admin/checks/accept/'.$check->id);
 
         $response->assertStatus(200);
 
         $this->assertDatabaseHas('accounts', [
             'user_id' => $user->id,
-            'balance' => 2000000
+            'balance' => 2000000,
         ]);
     }
 }

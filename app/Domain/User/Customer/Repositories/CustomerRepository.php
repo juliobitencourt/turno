@@ -2,15 +2,13 @@
 
 namespace App\Domain\User\Customer\Repositories;
 
-use App\Enums\UserRole;
 use App\Domain\User\AbstractUserRepository;
+use App\Enums\UserRole;
 
 class CustomerRepository extends AbstractUserRepository
 {
     /**
      * Determine the user's role.
-     *
-     * @return string
      */
     public function userRole(): string
     {

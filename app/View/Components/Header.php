@@ -13,8 +13,8 @@ class Header extends Component
      */
     public function __construct(
         public string $title,
-    )
-    {}
+    ) {
+    }
 
     /**
      * Get the view / contents that represent the component.

@@ -2,10 +2,10 @@
 
 namespace App\Domain\User;
 
-use App\Models\User;
 use App\Domain\User\DTO\UserData;
-use Illuminate\Support\Facades\Hash;
 use App\Domain\User\Interfaces\UserRepositoryInterface;
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
 abstract class AbstractUserRepository implements UserRepositoryInterface
 {
@@ -19,7 +19,7 @@ abstract class AbstractUserRepository implements UserRepositoryInterface
     /**
      * Creates a new user based on the provided user data.
      *
-     * @param UserData $userData The user data used to create the user.
+     * @param  UserData  $userData The user data used to create the user.
      * @return self Returns an instance of the current class.
      */
     public function create(UserData $userData): self
@@ -39,17 +39,15 @@ abstract class AbstractUserRepository implements UserRepositoryInterface
      * Method: userRole (abstract)
      *
      * Description: This method should be implemented in child classes to determine the user's role.
-     *
-     * @return string
      */
-    protected abstract function userRole(): string;
+    abstract protected function userRole(): string;
 
     /**
      * Method: find
      *
      * Description: Finds and retrieves a user based on the provided ID.
      *
-     * @param string $id The ID of the user to find.
+     * @param  string  $id The ID of the user to find.
      * @return User The found user object.
      */
     public function find(string $id): User
@@ -57,4 +55,3 @@ abstract class AbstractUserRepository implements UserRepositoryInterface
         return $this->user = User::find($id);
     }
 }
-

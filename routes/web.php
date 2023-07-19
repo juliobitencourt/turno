@@ -1,18 +1,18 @@
 <?php
 
-use App\Http\Middleware\UserIsAdmin;
-use Illuminate\Support\Facades\Route;
-use App\Http\Middleware\UserIsCustomer;
-use App\Http\Controllers\Customer\HomeController;
-use App\Http\Controllers\Customer\CheckController;
-use App\Http\Controllers\Customer\ExpenseController;
+use App\Http\Controllers\Admin\AcceptCheckController;
+use App\Http\Controllers\Admin\CheckControlController;
+use App\Http\Controllers\Admin\ImageController;
+use App\Http\Controllers\Admin\RejectCheckController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\CreateAccountController;
-use App\Http\Controllers\Admin\AcceptCheckController;
-use App\Http\Controllers\Admin\RejectCheckController;
-use App\Http\Controllers\Admin\CheckControlController;
-use App\Http\Controllers\Admin\ImageController;
+use App\Http\Controllers\Customer\CheckController;
+use App\Http\Controllers\Customer\ExpenseController;
+use App\Http\Controllers\Customer\HomeController;
+use App\Http\Middleware\UserIsAdmin;
+use App\Http\Middleware\UserIsCustomer;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,7 +32,7 @@ Route::get('/', function () {
 Route::post('register', CreateAccountController::class)->name('register');
 
 Route::prefix('login')->group(function () {
-    Route::get('/', function() {
+    Route::get('/', function () {
         return view('login');
     })->name('login');
 
@@ -43,7 +43,7 @@ Route::post('logout', LogoutController::class)->name('logout');
 
 Route::middleware([
     'auth:sanctum',
-    UserIsCustomer::class
+    UserIsCustomer::class,
 ])->group(function () {
     Route::get('home/{month?}', HomeController::class)->name('home');
 
@@ -62,7 +62,7 @@ Route::middleware([
 
 Route::middleware([
     'auth:sanctum',
-    UserIsAdmin::class
+    UserIsAdmin::class,
 ])->prefix('admin')->group(function () {
     Route::prefix('checks')->group(function () {
         Route::get('/', [CheckControlController::class, 'index'])->name('admin.checks');

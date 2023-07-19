@@ -2,10 +2,10 @@
 
 namespace App\Domain\Transaction;
 
-use Carbon\Carbon;
-use App\Models\Transaction;
 use App\Domain\Transaction\DTO\TransactionData;
 use App\Domain\Transaction\Interfaces\TransactionRepositoryInterface;
+use App\Models\Transaction;
+use Carbon\Carbon;
 
 abstract class AbstractTransactionRepository implements TransactionRepositoryInterface
 {
@@ -19,7 +19,7 @@ abstract class AbstractTransactionRepository implements TransactionRepositoryInt
     /**
      * Creates a new transaction based on the provided transaction data.
      *
-     * @param TransactionData $transactionData The data used to create the transaction.
+     * @param  TransactionData  $transactionData The data used to create the transaction.
      * @return self Returns an instance of the current class.
      */
     public function create(TransactionData $transactionData): self
@@ -39,17 +39,15 @@ abstract class AbstractTransactionRepository implements TransactionRepositoryInt
      * Method: transactionType (abstract)
      *
      * Description: This method should be implemented in child classes to determine the transactions's type.
-     *
-     * @return string
      */
-    protected abstract function transactionType(): string;
+    abstract protected function transactionType(): string;
 
     /**
      * Method: find
      *
      * Description: Finds and retrieves a transaction based on the provided ID.
      *
-     * @param string $id The ID of the transaction to find.
+     * @param  string  $id The ID of the transaction to find.
      * @return Transaction The found transaction object.
      */
     public function find(string $id): Transaction

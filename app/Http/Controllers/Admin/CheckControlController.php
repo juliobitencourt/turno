@@ -2,17 +2,15 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\CheckDeposit;
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use App\Domain\Check\Interfaces\CheckRepositoryInterface;
+use App\Http\Controllers\Controller;
 
 class CheckControlController extends Controller
 {
     public function __construct(
         private CheckRepositoryInterface $checkRepository
-    )
-    {}
+    ) {
+    }
 
     /**
      * Display a listing of the resource.
@@ -26,7 +24,7 @@ class CheckControlController extends Controller
                 'description' => $check->user->name,
                 'amount' => $check->amount,
                 'date' => $check->created_at,
-                'link' => route('admin.checks.show', $check)
+                'link' => route('admin.checks.show', $check),
             ];
         })->toArray();
 

@@ -2,15 +2,15 @@
 
 namespace App\Providers;
 
-use Illuminate\Support\ServiceProvider;
-use App\Domain\Check\Repositories\CheckRepository;
-use App\Domain\Check\Repositories\AcceptCheckRepository;
-use App\Domain\Check\Repositories\RejectCheckRepository;
-use App\Domain\Check\Interfaces\CheckRepositoryInterface;
+use App\Domain\Account\Interfaces\AccountRepositoryInterface;
 use App\Domain\Account\Repositories\AccountRepository;
 use App\Domain\Check\Interfaces\AcceptCheckRepositoryInterface;
+use App\Domain\Check\Interfaces\CheckRepositoryInterface;
 use App\Domain\Check\Interfaces\RejectCheckRepositoryInterface;
-use App\Domain\Account\Interfaces\AccountRepositoryInterface;
+use App\Domain\Check\Repositories\AcceptCheckRepository;
+use App\Domain\Check\Repositories\CheckRepository;
+use App\Domain\Check\Repositories\RejectCheckRepository;
+use Illuminate\Support\ServiceProvider;
 
 class RepositoryServiceProvider extends ServiceProvider
 {

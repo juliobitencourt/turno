@@ -2,20 +2,18 @@
 
 namespace App\Http\Controllers\Customer;
 
-use App\Models\CheckDeposit;
-use App\Enums\CheckStatus;
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
-use App\Domain\Repositories\CheckRepository;
 use App\Domain\Check\Interfaces\CheckRepositoryInterface;
+use App\Http\Controllers\Controller;
+use App\Models\CheckDeposit;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CheckController extends Controller
 {
     public function __construct(
         private CheckRepositoryInterface $checkRepository
-    )
-    {}
+    ) {
+    }
 
     /**
      * Display a listing of the resource.
@@ -28,7 +26,7 @@ class CheckController extends Controller
             return [
                 'description' => $check->description,
                 'amount' => $check->amount,
-                'date' => $check->created_at
+                'date' => $check->created_at,
             ];
         })->toArray();
 

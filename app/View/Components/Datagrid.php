@@ -13,8 +13,8 @@ class Datagrid extends Component
      */
     public function __construct(
         public array $list,
-    )
-    {}
+    ) {
+    }
 
     /**
      * Get the view / contents that represent the component.

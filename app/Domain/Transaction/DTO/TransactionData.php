@@ -11,5 +11,6 @@ class TransactionData
         public string $description,
         public int $amount,
         public DateTime $date,
-    ) {}
+    ) {
+    }
 }

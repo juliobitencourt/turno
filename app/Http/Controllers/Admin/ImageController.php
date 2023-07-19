@@ -23,7 +23,7 @@ class ImageController extends Controller
      */
     public function __invoke($filename)
     {
-        $path = storage_path('app/') . $filename;
+        $path = storage_path('app/').$filename;
 
         if (file_exists($path) === false) {
             abort(404);

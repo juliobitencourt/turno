@@ -19,7 +19,7 @@ class CheckRepository implements CheckRepositoryInterface
 
     public function getCheckById(string $checkId)
     {
-
+        return CheckDeposit::find($checkId);
     }
 
     public function createCheck(array $checkDetails)
@@ -31,15 +31,4 @@ class CheckRepository implements CheckRepositoryInterface
             'picture' => $checkDetails['picture'],
         ]);
     }
-
-    public function rejectCheck(string $checkId)
-    {
-
-    }
-
-    public function acceptCheck(string $checkId)
-    {
-
-    }
-
 }

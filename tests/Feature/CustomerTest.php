@@ -2,17 +2,16 @@
 
 namespace Tests\Feature;
 
-use Carbon\Carbon;
-use Tests\TestCase;
-use App\Models\User;
+use App\Enums\TransactionType;
 use App\Models\Account;
 use App\Models\Transaction;
-use App\Enums\TransactionType;
+use App\Models\User;
+use Carbon\Carbon;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
 
 class CustomerTest extends TestCase
 {
@@ -36,7 +35,7 @@ class CustomerTest extends TestCase
         ]);
 
         $this->assertDatabaseHas('users', [
-            'email' => 'john_doe@example.com'
+            'email' => 'john_doe@example.com',
         ]);
 
         $response->assertStatus(302);
@@ -82,11 +81,11 @@ class CustomerTest extends TestCase
         $file = UploadedFile::fake()->image('check.jpg');
 
         $response = $this->actingAs($user)->post('/checks/new',
-        [
-            'description' => "Grandmas's Gift",
-            'amount' => 300.00,
-            'file' => $file,
-        ]);
+            [
+                'description' => "Grandmas's Gift",
+                'amount' => 300.00,
+                'file' => $file,
+            ]);
 
         $response->assertStatus(201);
 
@@ -104,11 +103,11 @@ class CustomerTest extends TestCase
         Account::factory()->create(['user_id' => $user->id, 'balance' => 1000000]);
 
         $response = $this->actingAs($user)->post('/expenses/new',
-        [
-            'description' => "Grandmas's Gift",
-            'amount' => 5000,
-            'date' => Carbon::now(),
-        ]);
+            [
+                'description' => "Grandmas's Gift",
+                'amount' => 5000,
+                'date' => Carbon::now(),
+            ]);
 
         $response->assertStatus(201);
     }
@@ -124,11 +123,11 @@ class CustomerTest extends TestCase
         Account::factory()->create(['user_id' => $user->id, 'balance' => 10000]);
 
         $response = $this->actingAs($user)->post('/expenses/new',
-        [
-            'description' => "Grandmas's Gift",
-            'amount' => 30000,
-            'date' => Carbon::now(),
-        ]);
+            [
+                'description' => "Grandmas's Gift",
+                'amount' => 30000,
+                'date' => Carbon::now(),
+            ]);
 
         $response->assertStatus(422);
     }
@@ -144,15 +143,15 @@ class CustomerTest extends TestCase
         Account::factory()->create(['user_id' => $user->id, 'balance' => 1000000]);
 
         $response = $this->actingAs($user)->post('/expenses/new',
-        [
-            'description' => "Grandmas's Gift",
-            'amount' => 500000,
-            'date' => Carbon::now(),
-        ]);
+            [
+                'description' => "Grandmas's Gift",
+                'amount' => 500000,
+                'date' => Carbon::now(),
+            ]);
 
         $this->assertDatabaseHas('accounts', [
             'user_id' => $user->id,
-            'balance' => 500000
+            'balance' => 500000,
         ]);
     }
 
@@ -189,5 +188,4 @@ class CustomerTest extends TestCase
         $response->assertSee($transactionOne->description);
         $response->assertSee($transactionTwo->description);
     }
-
 }

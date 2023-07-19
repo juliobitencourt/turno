@@ -5,18 +5,16 @@ namespace App\Http\Controllers\Customer;
 use App\Domain\Account\Interfaces\AccountRepositoryInterface;
 use App\Domain\Transaction\DTO\TransactionData;
 use App\Domain\Transaction\Withdrawal\Repositories\WithdrawalRepository;
-use Carbon\Carbon;
-use Illuminate\Http\Request;
-use App\Enums\TransactionType;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class ExpenseController extends Controller
 {
     public function __construct(
         public readonly AccountRepositoryInterface $account
-    )
-    {}
+    ) {
+    }
 
     /**
      * Display a listing of the resource.
@@ -51,7 +49,7 @@ class ExpenseController extends Controller
             return response()->json([
                 'errors' => [
                     'amount' => ["The user's balance isn't enough to the amount"],
-                ]
+                ],
             ], 422); // Unprocessable Entity status code
         }
 

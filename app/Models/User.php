@@ -4,17 +4,14 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
-use App\Enums\UserRole;
-use App\Models\Transaction;
 use App\Enums\TransactionType;
-use Laravel\Sanctum\HasApiTokens;
-use Illuminate\Notifications\Notifiable;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Casts\Attribute;
-use Illuminate\Database\Eloquent\Relations\HasOne;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use App\Enums\UserRole;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
+use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
@@ -56,17 +53,6 @@ class User extends Authenticatable
     ];
 
     /**
-     * The amount number accessor and mutator.
-     */
-    // protected function balance(): Attribute
-    // {
-    //     return Attribute::make(
-    //         get: fn (string $value) => number_format($value/100, 2, '.', ''),
-    //         set: fn (mixed $value) => $value * 100,
-    //     );
-    // }
-
-    /**
      * Get the account associated with the user.
      */
     public function account(): HasOne
@@ -83,7 +69,7 @@ class User extends Authenticatable
     }
 
     /**
-     * Get the transactions of the.
+     * Get the transactions of the user.
      */
     public function transactions(): HasMany
     {
@@ -93,19 +79,19 @@ class User extends Authenticatable
     public function scopeIncomes()
     {
         return $this->transactions()
-                    ->where('type', TransactionType::DEPOSIT);
+            ->where('type', TransactionType::DEPOSIT);
     }
 
     public function scopeExpenses()
     {
         return $this->transactions()
-                    ->where('type', TransactionType::WITHDRAWAL);
+            ->where('type', TransactionType::WITHDRAWAL);
     }
 
     public function incomesSum()
     {
         $incomes = $this->incomes()
-                    ->sum('amount');
+            ->sum('amount');
 
         $incomes = abs($incomes);
 
@@ -115,14 +101,9 @@ class User extends Authenticatable
     public function expensesSum()
     {
         $expenses = $this->expenses()
-                    ->sum('amount');
+            ->sum('amount');
 
         return number_format($expenses / 100, 2, '.', '');
-    }
-
-    public function haveEnoughMoney($amount): bool
-    {
-        return $this->balance > $amount;
     }
 
     /**
