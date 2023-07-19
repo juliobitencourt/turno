@@ -39,6 +39,8 @@ class CustomerTest extends TestCase
         ]);
 
         $response->assertStatus(302);
+
+        $this->assertAuthenticated();
     }
 
     /**
@@ -46,18 +48,22 @@ class CustomerTest extends TestCase
      */
     public function test_an_user_starts_with_zero_balance(): void
     {
-       $password = Hash::make('123456');
+        $this->withoutExceptionHandling();
 
-        $response = $this->post('/register', [
-            'username' => 'john_doe',
+        $password = Hash::make('123456');
+
+        $this->post('/register', [
+            'username' => 'john_doe-123',
             'name' => 'John Doe',
             'email' => 'john_doe@example.com',
             'password' => $password,
             'password_confirmation' => $password,
         ]);
 
-        $this->assertDatabaseHas('users', [
-            'email' => 'john_doe@example.com',
+        $user = User::first();
+
+        $this->assertDatabaseHas('accounts', [
+            'user_id' => $user->id,
             'balance' => 0,
         ]);
     }

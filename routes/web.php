@@ -8,7 +8,7 @@ use App\Http\Controllers\Customer\CheckController;
 use App\Http\Controllers\Customer\ExpenseController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
-use App\Http\Controllers\UserRegisterController;
+use App\Http\Controllers\CreateAccountController;
 use App\Http\Controllers\Admin\AcceptCheckController;
 use App\Http\Controllers\Admin\RejectCheckController;
 use App\Http\Controllers\Admin\CheckControlController;
@@ -29,7 +29,7 @@ Route::get('/', function () {
     return view('welcome');
 })->name('welcome');
 
-Route::post('register', UserRegisterController::class)->name('register');
+Route::post('register', CreateAccountController::class)->name('register');
 
 Route::prefix('login')->group(function () {
     Route::get('/', function() {
