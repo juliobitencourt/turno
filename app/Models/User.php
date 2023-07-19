@@ -76,36 +76,6 @@ class User extends Authenticatable
         return $this->hasMany(Transaction::class);
     }
 
-    public function scopeIncomes()
-    {
-        return $this->transactions()
-            ->where('type', TransactionType::DEPOSIT);
-    }
-
-    public function scopeExpenses()
-    {
-        return $this->transactions()
-            ->where('type', TransactionType::WITHDRAWAL);
-    }
-
-    public function incomesSum()
-    {
-        $incomes = $this->incomes()
-            ->sum('amount');
-
-        $incomes = abs($incomes);
-
-        return number_format($incomes / 100, 2, '.', '');
-    }
-
-    public function expensesSum()
-    {
-        $expenses = $this->expenses()
-            ->sum('amount');
-
-        return number_format($expenses / 100, 2, '.', '');
-    }
-
     /**
      * Check whether the user is an admin
      */

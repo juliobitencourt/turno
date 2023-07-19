@@ -14,11 +14,22 @@ use Illuminate\Support\Facades\DB;
 
 class AcceptCheckRepository implements AcceptCheckRepositoryInterface
 {
+    /**
+     * Initializes a new instance of the CheckDepositHandler class.
+     *
+     * @param  AccountRepositoryInterface  $account The account repository to use for account operations.
+     */
     public function __construct(
         public readonly AccountRepositoryInterface $account
     ) {
     }
 
+    /**
+     * Accepts a check deposit and performs necessary operations.
+     *
+     * @param  CheckDeposit  $check The check deposit to accept.
+     * @return void
+     */
     public function accept(CheckDeposit $check)
     {
         $check->status = CheckDepositStatus::APPROVED;

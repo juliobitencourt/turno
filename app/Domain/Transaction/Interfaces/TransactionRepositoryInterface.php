@@ -9,4 +9,6 @@ interface TransactionRepositoryInterface
     public function create(TransactionData $transactionData);
 
     public function find(string $id);
+
+    public function sum(string $userId): int;
 }

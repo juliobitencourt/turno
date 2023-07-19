@@ -2,13 +2,16 @@
 
 namespace App\Domain\Transaction;
 
+use Carbon\Carbon;
+use App\Models\Transaction;
+use App\Traits\NumberFormat;
 use App\Domain\Transaction\DTO\TransactionData;
 use App\Domain\Transaction\Interfaces\TransactionRepositoryInterface;
-use App\Models\Transaction;
-use Carbon\Carbon;
 
 abstract class AbstractTransactionRepository implements TransactionRepositoryInterface
 {
+    use NumberFormat;
+
     /**
      * The current transaction.
      *
@@ -33,6 +36,20 @@ abstract class AbstractTransactionRepository implements TransactionRepositoryInt
         $this->transaction->save();
 
         return $this;
+    }
+
+    /**
+     * Get the sum of transactions by type.
+     *
+     */
+    public function sum(string $userId): int
+    {
+        $sum = Transaction::where([
+            'user_id' => $userId,
+            'type' => $this->transactionType()
+        ])->sum('amount');
+
+        return $this->get($sum);
     }
 
     /**
