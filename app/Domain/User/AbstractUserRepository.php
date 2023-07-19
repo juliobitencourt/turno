@@ -3,7 +3,6 @@
 namespace App\Domain\User;
 
 use App\Models\User;
-use App\Enums\UserRole;
 use App\Domain\User\DTO\UserData;
 use Illuminate\Support\Facades\Hash;
 use App\Domain\User\Interfaces\UserRepositoryInterface;

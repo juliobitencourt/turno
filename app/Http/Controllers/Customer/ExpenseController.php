@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Customer;
 
 use App\Domain\Account\Interfaces\AccountRepositoryInterface;
+use App\Domain\Transaction\DTO\TransactionData;
+use App\Domain\Transaction\Withdrawal\Repositories\WithdrawalRepository;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Enums\TransactionType;
@@ -39,7 +41,7 @@ class ExpenseController extends Controller
      */
     public function store(Request $request)
     {
-        $v = $request->validate([
+        $validated = $request->validate([
             'amount' => ['required', 'numeric'],
             'date' => ['required', 'date'],
             'description' => ['required', 'string', 'max:255'],
@@ -53,15 +55,17 @@ class ExpenseController extends Controller
             ], 422); // Unprocessable Entity status code
         }
 
-        $expense = Auth::user()->transactions()->create([
-            'type' => TransactionType::WITHDRAWAL,
-            'description' => $request->description,
-            'amount' => $request->amount,
-            'date' => Carbon::parse($request->date)->toDateTimeString(),
-        ]);
+        $expense = (new WithdrawalRepository)->create(
+            new TransactionData(
+                userId: Auth::user()->id,
+                description: $validated['description'],
+                amount: $validated['amount'],
+                date: $request->date,
+            )
+        );
 
         $this->account->decrementAccountBalance(Auth::user()->account->id, $request->amount);
 
-        return $expense;
+        return $expense->transaction;
     }
 }
