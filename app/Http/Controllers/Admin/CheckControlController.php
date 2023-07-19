@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Domain\Check\Interfaces\CheckRepositoryInterface;
 use App\Http\Controllers\Controller;
+use App\Models\CheckDeposit;
 
 class CheckControlController extends Controller
 {
@@ -34,7 +35,7 @@ class CheckControlController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Check $check)
+    public function show(CheckDeposit $check)
     {
         return view('admin.check-details', compact('check'));
     }

@@ -140,18 +140,18 @@ class CustomerTest extends TestCase
         $this->withoutExceptionHandling();
 
         $user = User::factory()->create();
-        Account::factory()->create(['user_id' => $user->id, 'balance' => 1000000]);
+        Account::factory()->create(['user_id' => $user->id, 'balance' => 1000]);
 
         $response = $this->actingAs($user)->post('/expenses/new',
             [
                 'description' => "Grandmas's Gift",
-                'amount' => 500000,
+                'amount' => 500,
                 'date' => Carbon::now(),
             ]);
 
         $this->assertDatabaseHas('accounts', [
             'user_id' => $user->id,
-            'balance' => 500000,
+            'balance' => 50000,
         ]);
     }
 

@@ -4,9 +4,12 @@ namespace App\Domain\Account\Repositories;
 
 use App\Domain\Account\Interfaces\AccountRepositoryInterface;
 use App\Models\Account;
+use App\Traits\NumberFormat;
 
 class AccountRepository implements AccountRepositoryInterface
 {
+    use NumberFormat;
+
     /**
      * Creates a new account with the provided user ID and initial balance.
      *
@@ -54,7 +57,7 @@ class AccountRepository implements AccountRepositoryInterface
     public function incrementAccountBalance(string $accountId, int $amount): void
     {
         $account = Account::find($accountId);
-        $account->increment('balance', $amount);
+        $account->increment('balance', $this->set($amount));
     }
 
     /**
@@ -66,6 +69,6 @@ class AccountRepository implements AccountRepositoryInterface
     public function decrementAccountBalance(string $accountId, int $amount): void
     {
         $account = Account::find($accountId);
-        $account->decrement('balance', $amount);
+        $account->decrement('balance', $this->set($amount));
     }
 }

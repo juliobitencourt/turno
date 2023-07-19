@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Customer;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
 use App\Domain\Account\Interfaces\AccountRepositoryInterface;
 use App\Domain\Transaction\Deposit\Repositories\DepositRepository;
 use App\Domain\Transaction\Withdrawal\Repositories\WithdrawalRepository;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {

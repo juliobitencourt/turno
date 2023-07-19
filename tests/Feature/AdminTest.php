@@ -68,12 +68,12 @@ class AdminTest extends TestCase
 
         $admin = User::factory()->create(['role' => UserRole::ADMIN]);
         $user = User::factory()->create(['role' => UserRole::CUSTOMER]);
-        Account::factory()->create(['user_id' => $user->id, 'balance' => 1000000]);
+        Account::factory()->create(['user_id' => $user->id, 'balance' => 10000]);
 
         $check = CheckDeposit::factory()->create([
             'user_id' => $user,
             'description' => 'May Payment',
-            'amount' => 1000000,
+            'amount' => 10000,
         ]);
 
         $response = $this->actingAs($admin)->put('/admin/checks/accept/'.$check->id);

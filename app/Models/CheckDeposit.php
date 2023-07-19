@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Enums\UserRole;
+use App\Enums\CheckDepositStatus;
 use App\Traits\HasAmount;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -32,7 +32,7 @@ class CheckDeposit extends Model
      * @var array<string, string>
      */
     protected $casts = [
-        'status' => UserRole::class,
+        'status' => CheckDepositStatus::class,
     ];
 
     /**

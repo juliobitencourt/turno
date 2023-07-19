@@ -12,7 +12,8 @@ use Illuminate\Support\Facades\Auth;
 class ExpenseController extends Controller
 {
     public function __construct(
-        public readonly AccountRepositoryInterface $account
+        public readonly AccountRepositoryInterface $account,
+        public readonly WithdrawalRepository $withdrawal,
     ) {
     }
 
@@ -21,7 +22,7 @@ class ExpenseController extends Controller
      */
     public function index()
     {
-        $expenses = Auth::user()->expenses()->get()->toArray();
+        $expenses = $this->withdrawal->getTransactions(Auth::user()->id)->toArray();
 
         return view('customer.expenses-list', compact('expenses'));
     }

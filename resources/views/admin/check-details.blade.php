@@ -22,7 +22,7 @@
             <span class="text-blue-700 font-semibold">{{ $check->amount }}</span>
         </div>
         <div class="flex justify-center">
-            <img width="350" src="{{ route('admin.check-image', ['filename' => $check->filename]) }}" alt="Check Image">
+            <img width="350" src="{{ route('admin.check-image', ['filename' => $check->picture]) }}" alt="Check Image">
         </div>
     </div>
     <div class="mx-auto w-full lg:w-3/6 p-6 text-blue-500 flex gap-4">
