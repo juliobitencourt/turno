@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Customer;
 
+use App\Domain\Account\Interfaces\AccountRepositoryInterface;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Enums\TransactionType;
@@ -10,6 +11,11 @@ use Illuminate\Support\Facades\Auth;
 
 class ExpenseController extends Controller
 {
+    public function __construct(
+        public readonly AccountRepositoryInterface $account
+    )
+    {}
+
     /**
      * Display a listing of the resource.
      */
@@ -39,7 +45,7 @@ class ExpenseController extends Controller
             'description' => ['required', 'string', 'max:255'],
         ]);
 
-        if (Auth::user()->haveEnoughMoney($request->amount) === false) {
+        if (! $this->account->hasBalance(Auth::user()->account->id, $request->amount)) {
             return response()->json([
                 'errors' => [
                     'amount' => ["The user's balance isn't enough to the amount"],
@@ -48,13 +54,13 @@ class ExpenseController extends Controller
         }
 
         $expense = Auth::user()->transactions()->create([
-            'type_id' => TransactionType::EXPENSE,
+            'type' => TransactionType::WITHDRAWAL,
             'description' => $request->description,
             'amount' => $request->amount,
             'date' => Carbon::parse($request->date)->toDateTimeString(),
         ]);
 
-        Auth::user()->subtractMoney($request->amount);
+        $this->account->decrementAccountBalance(Auth::user()->account->id, $request->amount);
 
         return $expense;
     }

@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\CheckDeposit;
 use App\Http\Controllers\Controller;
-use App\Domain\Interfaces\AcceptCheckRepositoryInterface;
+use App\Domain\Check\Interfaces\AcceptCheckRepositoryInterface;
 
 class AcceptCheckController extends Controller
 {

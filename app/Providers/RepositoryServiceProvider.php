@@ -3,16 +3,14 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use App\Domain\Repositories\CheckRepository;
-use App\Domain\Repositories\AcceptCheckRepository;
-use App\Domain\Repositories\RejectCheckRepository;
-use App\Domain\Interfaces\CheckRepositoryInterface;
+use App\Domain\Check\Repositories\CheckRepository;
+use App\Domain\Check\Repositories\AcceptCheckRepository;
+use App\Domain\Check\Repositories\RejectCheckRepository;
+use App\Domain\Check\Interfaces\CheckRepositoryInterface;
 use App\Domain\Account\Repositories\AccountRepository;
-use App\Domain\Customer\Repositories\CustomerRepository;
-use App\Domain\Interfaces\AcceptCheckRepositoryInterface;
-use App\Domain\Interfaces\RejectCheckRepositoryInterface;
+use App\Domain\Check\Interfaces\AcceptCheckRepositoryInterface;
+use App\Domain\Check\Interfaces\RejectCheckRepositoryInterface;
 use App\Domain\Account\Interfaces\AccountRepositoryInterface;
-use App\Domain\Customer\Interfaces\CustomerRepositoryInterface;
 
 class RepositoryServiceProvider extends ServiceProvider
 {

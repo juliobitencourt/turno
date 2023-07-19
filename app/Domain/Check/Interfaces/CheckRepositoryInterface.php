@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Domain\Interfaces;
+namespace App\Domain\Check\Interfaces;
 
 interface CheckRepositoryInterface
 {

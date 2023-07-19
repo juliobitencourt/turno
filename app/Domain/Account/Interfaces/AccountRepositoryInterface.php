@@ -4,11 +4,11 @@ namespace App\Domain\Account\Interfaces;
 
 interface AccountRepositoryInterface
 {
-    public function create(string $id);
+    public function create(string $id): void;
 
-    // public function hasBalance();
+    public function hasBalance(string $accountId, int $amount): bool;
 
-    // public function addAccountBalance();
+    public function incrementAccountBalance(string $accountId, int $amount): void;
 
-    // public function removeAccountBalance();
+    public function decrementAccountBalance(string $accountId, int $amount): void;
 }

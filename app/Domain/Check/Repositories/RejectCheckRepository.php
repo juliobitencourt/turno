@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Domain\Repositories;
+namespace App\Domain\Check\Repositories;
 
 use App\Enums\CheckDepositStatus;
-use App\Domain\Interfaces\RejectCheckRepositoryInterface;
+use App\Domain\Check\Interfaces\RejectCheckRepositoryInterface;
 
 class RejectCheckRepository implements RejectCheckRepositoryInterface
 {

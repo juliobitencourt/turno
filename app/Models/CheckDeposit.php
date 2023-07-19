@@ -26,7 +26,7 @@ class CheckDeposit extends Model
         'status',
         'description',
         'amount',
-        'filename',
+        'picture',
     ];
 
     /**

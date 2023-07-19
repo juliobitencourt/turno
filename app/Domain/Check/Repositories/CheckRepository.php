@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Domain\Repositories;
+namespace App\Domain\Check\Repositories;
 
-use App\Domain\Interfaces\CheckRepositoryInterface;
+use App\Domain\Check\Interfaces\CheckRepositoryInterface;
 use App\Models\CheckDeposit;
 
 class CheckRepository implements CheckRepositoryInterface
@@ -28,7 +28,7 @@ class CheckRepository implements CheckRepositoryInterface
             'user_id' => $checkDetails['user_id'],
             'description' => $checkDetails['description'],
             'amount' => $checkDetails['amount'],
-            'filename' => $checkDetails['filename'],
+            'picture' => $checkDetails['picture'],
         ]);
     }
 

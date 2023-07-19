@@ -4,8 +4,9 @@ namespace Tests\Feature;
 
 use Tests\TestCase;
 use App\Models\User;
-use App\Models\CheckDeposit;
 use App\Enums\UserRole;
+use App\Models\Account;
+use App\Models\CheckDeposit;
 use App\Enums\CheckDepositStatus;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -68,20 +69,21 @@ class AdminTest extends TestCase
         $this->withoutExceptionHandling();
 
         $admin = User::factory()->create(['role' => UserRole::ADMIN]);
-        $user = User::factory()->create(['role' => UserRole::CUSTOMER, 'balance' => 10000]);
+        $user = User::factory()->create(['role' => UserRole::CUSTOMER]);
+        Account::factory()->create(['user_id' => $user->id, 'balance' => 1000000]);
 
-        $check = CheckDeposity::factory()->create([
+        $check = CheckDeposit::factory()->create([
             'user_id' => $user,
             'description' => 'May Payment',
-            'amount' => 10000,
+            'amount' => 1000000,
         ]);
 
         $response = $this->actingAs($admin)->put('/admin/checks/accept/' . $check->id);
 
         $response->assertStatus(200);
 
-        $this->assertDatabaseHas('users', [
-            'email' => $user->email,
+        $this->assertDatabaseHas('accounts', [
+            'user_id' => $user->id,
             'balance' => 2000000
         ]);
     }

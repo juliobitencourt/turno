@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Models\CheckDeposit;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Domain\Interfaces\CheckRepositoryInterface;
+use App\Domain\Check\Interfaces\CheckRepositoryInterface;
 
 class CheckControlController extends Controller
 {

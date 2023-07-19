@@ -74,18 +74,6 @@ class User extends Authenticatable
         return $this->hasOne(Account::class);
     }
 
-    public function subtractMoney($amount): void
-    {
-        $this->balance = $this->balance - $amount;
-        $this->save();
-    }
-
-    public function addMoney($amount): void
-    {
-        $this->balance = $this->balance + $amount;
-        $this->save();
-    }
-
     /**
      * Get the checks of the user.
      */
@@ -105,13 +93,13 @@ class User extends Authenticatable
     public function scopeIncomes()
     {
         return $this->transactions()
-                    ->where('type_id', TransactionType::DEPOSIT);
+                    ->where('type', TransactionType::DEPOSIT);
     }
 
     public function scopeExpenses()
     {
         return $this->transactions()
-                    ->where('type_id', TransactionType::WITHDRAWAL);
+                    ->where('type', TransactionType::WITHDRAWAL);
     }
 
     public function incomesSum()

@@ -22,7 +22,7 @@ class Transaction extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'type_id',
+        'type',
         'description',
         'amount',
         'date'
@@ -34,7 +34,7 @@ class Transaction extends Model
      * @var array<string, string>
      */
     protected $casts = [
-        'type_id' => TransactionType::class,
+        'type' => TransactionType::class,
     ];
 
     /**

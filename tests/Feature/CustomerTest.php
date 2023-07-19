@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use Carbon\Carbon;
 use Tests\TestCase;
 use App\Models\User;
+use App\Models\Account;
 use App\Models\Transaction;
 use App\Enums\TransactionType;
 use Illuminate\Http\UploadedFile;
@@ -99,7 +100,8 @@ class CustomerTest extends TestCase
     {
         $this->withoutExceptionHandling();
 
-        $user = User::factory()->create(['balance' => 10000]);
+        $user = User::factory()->create();
+        Account::factory()->create(['user_id' => $user->id, 'balance' => 1000000]);
 
         $response = $this->actingAs($user)->post('/expenses/new',
         [
@@ -118,7 +120,8 @@ class CustomerTest extends TestCase
     {
         $this->withoutExceptionHandling();
 
-        $user = User::factory()->create(['balance' => 10000]);
+        $user = User::factory()->create();
+        Account::factory()->create(['user_id' => $user->id, 'balance' => 10000]);
 
         $response = $this->actingAs($user)->post('/expenses/new',
         [
@@ -137,17 +140,18 @@ class CustomerTest extends TestCase
     {
         $this->withoutExceptionHandling();
 
-        $user = User::factory()->create(['balance' => 10000]);
+        $user = User::factory()->create();
+        Account::factory()->create(['user_id' => $user->id, 'balance' => 1000000]);
 
         $response = $this->actingAs($user)->post('/expenses/new',
         [
             'description' => "Grandmas's Gift",
-            'amount' => 5000.00,
+            'amount' => 500000,
             'date' => Carbon::now(),
         ]);
 
-        $this->assertDatabaseHas('users', [
-            'email' => $user->email,
+        $this->assertDatabaseHas('accounts', [
+            'user_id' => $user->id,
             'balance' => 500000
         ]);
     }
@@ -159,11 +163,12 @@ class CustomerTest extends TestCase
     {
         $this->withoutExceptionHandling();
 
-        $user = User::factory()->create(['balance' => 10000]);
+        $user = User::factory()->create();
+        Account::factory()->create(['user_id' => $user->id, 'balance' => 1000000]);
 
         $transactionOne = Transaction::factory()->create([
             'user_id' => $user,
-            'type_id' => TransactionType::EXPENSE,
+            'type' => TransactionType::WITHDRAWAL,
             'description' => 'T-shirt',
             'amount' => 50,
             'date' => Carbon::now(),
@@ -171,7 +176,7 @@ class CustomerTest extends TestCase
 
         $transactionTwo = Transaction::factory()->create([
             'user_id' => $user,
-            'type_id' => TransactionType::EXPENSE,
+            'type' => TransactionType::WITHDRAWAL,
             'description' => 'Groceries',
             'amount' => 100,
             'date' => Carbon::now(),

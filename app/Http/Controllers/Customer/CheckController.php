@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Domain\Repositories\CheckRepository;
-use App\Domain\Interfaces\CheckRepositoryInterface;
+use App\Domain\Check\Interfaces\CheckRepositoryInterface;
 
 class CheckController extends Controller
 {
@@ -43,7 +43,7 @@ class CheckController extends Controller
         return view('customer.checks-form');
     }
 
-    public function store(Request $request): Check
+    public function store(Request $request): CheckDeposit
     {
         $validatedData = $request->validate([
             'description' => ['required', 'string', 'max:255'],
@@ -57,7 +57,7 @@ class CheckController extends Controller
             'user_id' => Auth::user()->id,
             'description' => $validatedData['description'],
             'amount' => $validatedData['amount'],
-            'filename' => $filename,
+            'picture' => $filename,
         ]);
     }
 }
