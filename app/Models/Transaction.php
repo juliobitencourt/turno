@@ -37,6 +37,9 @@ class Transaction extends Model
         'type_id' => TransactionType::class,
     ];
 
+    /**
+     * Get the user that owns the transaction.
+     */
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);

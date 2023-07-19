@@ -16,7 +16,7 @@ class AcceptCheckController extends Controller
     /**
      * Handle the incoming request.
      */
-    public function __invoke(Check $check)
+    public function __invoke(CheckDeposit $check)
     {
         $this->acceptCheckRepository->accept($check);
     }

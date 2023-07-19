@@ -11,6 +11,7 @@ use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -57,12 +58,20 @@ class User extends Authenticatable
     /**
      * The amount number accessor and mutator.
      */
-    protected function balance(): Attribute
+    // protected function balance(): Attribute
+    // {
+    //     return Attribute::make(
+    //         get: fn (string $value) => number_format($value/100, 2, '.', ''),
+    //         set: fn (mixed $value) => $value * 100,
+    //     );
+    // }
+
+    /**
+     * Get the account associated with the user.
+     */
+    public function account(): HasOne
     {
-        return Attribute::make(
-            get: fn (string $value) => number_format($value/100, 2, '.', ''),
-            set: fn (mixed $value) => $value * 100,
-        );
+        return $this->hasOne(Account::class);
     }
 
     public function subtractMoney($amount): void
@@ -77,11 +86,17 @@ class User extends Authenticatable
         $this->save();
     }
 
+    /**
+     * Get the checks of the user.
+     */
     public function checks(): HasMany
     {
         return $this->hasMany(CheckDeposit::class);
     }
 
+    /**
+     * Get the transactions of the.
+     */
     public function transactions(): HasMany
     {
         return $this->hasMany(Transaction::class);
@@ -122,11 +137,17 @@ class User extends Authenticatable
         return $this->balance > $amount;
     }
 
+    /**
+     * Check whether the user is an admin
+     */
     public function isAdmin()
     {
         return $this->role === UserRole::ADMIN;
     }
 
+    /**
+     * Check whether the user is a customer
+     */
     public function isCustomer()
     {
         return $this->role === UserRole::CUSTOMER;

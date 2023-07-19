@@ -38,6 +38,9 @@ class CheckDeposit extends Model
         'status' => UserRole::class,
     ];
 
+    /**
+     * Get the user that owns the check.
+     */
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
