@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\NumberFormat;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -11,7 +12,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Account extends Model
 {
-    use HasFactory, SoftDeletes, HasUuids;
+    use HasFactory, SoftDeletes, HasUuids, NumberFormat;
 
     /**
      * The attributes that are mass assignable.
@@ -29,8 +30,8 @@ class Account extends Model
     protected function balance(): Attribute
     {
         return Attribute::make(
-            get: fn (string $value) => number_format($value / 100, 2, '.', ''),
-            set: fn (mixed $value) => $value * 100,
+            get: fn (string $value) => $this->get($value),
+            set: fn (mixed $value) => $this->set($value),
         );
     }
 
