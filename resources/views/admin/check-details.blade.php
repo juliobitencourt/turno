@@ -15,7 +15,7 @@
         </div>
         <div class="flex flex-col">
             <span class="uppercase text-xs text-blue-400">Account</span>
-            <span class="text-blue-700 font-semibold">561234</span>
+            <span class="text-blue-700 font-semibold">{{ $check->user->account->id }}</span>
         </div>
         <div class="flex flex-col">
             <span class="uppercase text-xs text-blue-400">Reported Amount</span>
