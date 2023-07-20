@@ -33,7 +33,7 @@ abstract class AbstractTransactionRepository implements TransactionRepositoryInt
         $this->transaction->user_id = $transactionData->userId;
         $this->transaction->type = $this->transactionType();
         $this->transaction->description = $transactionData->description;
-        $this->transaction->amount = $this->transactionType() === TransactionType::WITHDRAWAL->value ? -$transactionData->amount : $transactionData->amount;
+        $this->transaction->amount = $this->convertTheAmount($transactionData->amount);
         $this->transaction->date = Carbon::parse($transactionData->date)->toDateTimeString();
         $this->transaction->save();
 
@@ -42,6 +42,9 @@ abstract class AbstractTransactionRepository implements TransactionRepositoryInt
 
     /**
      * Get transactions by type.
+     *
+     * @param  string  $userId The id of the user to filter the transactions.
+     * @return Collection
      */
     public function getTransactions(string $userId): Collection
     {
@@ -53,6 +56,9 @@ abstract class AbstractTransactionRepository implements TransactionRepositoryInt
 
     /**
      * Get the sum of transactions by type.
+     *
+     * @param  string  $userId The id of the user to sum the transactions.
+     * @return int
      */
     public function sum(string $userId): int
     {
@@ -65,16 +71,14 @@ abstract class AbstractTransactionRepository implements TransactionRepositoryInt
     }
 
     /**
-     * Method: transactionType (abstract)
+     * This method should be implemented in child classes to determine the transactions's type.
      *
-     * Description: This method should be implemented in child classes to determine the transactions's type.
+     * @return string
      */
     abstract protected function transactionType(): string;
 
     /**
-     * Method: find
-     *
-     * Description: Finds and retrieves a transaction based on the provided ID.
+     * Finds and retrieves a transaction based on the provided ID.
      *
      * @param  string  $id The ID of the transaction to find.
      * @return Transaction The found transaction object.
@@ -82,5 +86,20 @@ abstract class AbstractTransactionRepository implements TransactionRepositoryInt
     public function find(string $id): Transaction
     {
         return $this->transaction = Transaction::find($id);
+    }
+
+    /**
+     * Checks whether the amount should be converted to a negative value.
+     *
+     * @param  int  $amount The value to be converted.
+     * @return int
+     */
+    protected function convertTheAmount(int $amount): int
+    {
+        if ($this->transactionType() === TransactionType::WITHDRAWAL->value) {
+            return -$amount;
+        }
+
+        return $amount;
     }
 }
