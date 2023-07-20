@@ -38,14 +38,14 @@ class AdminTest extends TestCase
 
         $checkOne = CheckDeposit::factory()->create([
             'user_id' => $user,
-            'status' => CheckDepositStatus::APPROVED,
+            'status' => CheckDepositStatus::PENDING,
             'description' => 'May Payment',
             'amount' => 50,
         ]);
 
         $checkTwo = CheckDeposit::factory()->create([
             'user_id' => $user,
-            'status' => CheckDepositStatus::APPROVED,
+            'status' => CheckDepositStatus::PENDING,
             'description' => 'June Payment',
             'amount' => 100,
         ]);

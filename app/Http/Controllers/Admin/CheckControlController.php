@@ -34,7 +34,7 @@ class CheckControlController extends Controller
             ->map(function ($items, $key) {
                 return collect($items)->map(function ($item) {
                     return [
-                        'description' => $item['description'],
+                        'description' => $item['user']['name'],
                         'amount' => $item['amount'],
                         'date' => $item['created_at'],
                         'link' => route('admin.checks.show', $item['id']),
