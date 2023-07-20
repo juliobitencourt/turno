@@ -3,7 +3,7 @@
 namespace App\Domain\Check\Repositories;
 
 use App\Domain\Account\Interfaces\AccountRepositoryInterface;
-use App\Domain\Check\Interfaces\ApproveCheckRepositoryInterface;
+use App\Domain\Check\Interfaces\ApproveCheckActionInterface;
 use App\Domain\Transaction\DTO\TransactionData;
 use App\Domain\Transaction\Deposit\Repositories\DepositRepository;
 use App\Enums\CheckDepositStatus;
@@ -12,10 +12,10 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
-class ApproveCheckRepository implements ApproveCheckRepositoryInterface
+class ApproveCheckAction implements ApproveCheckActionInterface
 {
     /**
-     * Initializes a new instance of the ApproveCheckRepository class.
+     * Initializes a new instance of the ApproveCheckAction class.
      *
      * @param  AccountRepositoryInterface  $account The account repository to use for account operations.
      */

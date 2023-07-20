@@ -13,13 +13,13 @@
             </TabList>
             <TabPanels class="w-full">
                 <TabPanel>
-                    <x-datagrid :list="$checks"/>
+                    <x-datagrid :list="$pending"/>
                 </TabPanel>
                 <TabPanel>
-                    <x-datagrid :list="$checks"/>
+                    <x-datagrid :list="$approved"/>
                 </TabPanel>
                 <TabPanel>
-                    <x-datagrid :list="$checks"/>
+                    <x-datagrid :list="$denied"/>
                 </TabPanel>
             </TabPanels>
         </TabGroup>

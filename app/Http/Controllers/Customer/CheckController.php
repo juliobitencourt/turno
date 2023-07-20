@@ -8,6 +8,7 @@ use App\Domain\Check\DTO\CheckData;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Domain\Check\Interfaces\CheckRepositoryInterface;
+use App\Enums\CheckDepositStatus;
 
 class CheckController extends Controller
 {
@@ -26,17 +27,28 @@ class CheckController extends Controller
      */
     public function index()
     {
-        $checks = $this->checkRepository->getChecksByCustomer(Auth::user()->id);
+        $checks = collect([
+            $this->checkRepository->getChecksByCustomer(Auth::user()->id, CheckDepositStatus::PENDING)->toArray(),
+            $this->checkRepository->getChecksByCustomer(Auth::user()->id, CheckDepositStatus::APPROVED)->toArray(),
+            $this->checkRepository->getChecksByCustomer(Auth::user()->id, CheckDepositStatus::DENIED)->toArray(),
+        ])
+        ->flatten(1)
+        ->groupBy('status')
+        ->map(function ($items, $key) {
+            return collect($items)->map(function ($item) {
+                return [
+                    'description' => $item['description'],
+                    'amount' => $item['amount'],
+                    'date' => $item['created_at'],
+                ];
+            })->all();
+        });
 
-        $checks = $checks->map(function ($check) {
-            return [
-                'description' => $check->description,
-                'amount' => $check->amount,
-                'date' => $check->created_at,
-            ];
-        })->toArray();
-
-        return view('customer.checks-list', compact('checks'));
+        return view('customer.checks-list', [
+            'pending' => $checks['pending'] ?? [],
+            'approved' => $checks['approved'] ?? [],
+            'denied' => $checks['denied'] ?? [],
+        ]);
     }
 
     /**

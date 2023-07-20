@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Domain\Check\Interfaces\ApproveCheckRepositoryInterface;
+use App\Domain\Check\Interfaces\ApproveCheckActionInterface;
 use App\Http\Controllers\Controller;
 use App\Models\CheckDeposit;
 
@@ -11,10 +11,10 @@ class ApproveCheckController extends Controller
     /**
      * Initializes a new instance of the ApproveCheckController class.
      *
-     * @param  ApproveCheckRepositoryInterface  $approveCheckRepository The approval action.
+     * @param  ApproveCheckActionInterface  $approveCheckAction The approval action.
      */
     public function __construct(
-        private ApproveCheckRepositoryInterface $approveCheckRepository
+        private ApproveCheckActionInterface $approveCheckAction
     ) {
     }
 
@@ -25,6 +25,6 @@ class ApproveCheckController extends Controller
      */
     public function __invoke(CheckDeposit $check)
     {
-        $this->approveCheckRepository->approve($check);
+        $this->approveCheckAction->approve($check);
     }
 }

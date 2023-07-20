@@ -2,11 +2,11 @@
 
 namespace App\Domain\Check\Repositories;
 
-use App\Domain\Check\Interfaces\DenyCheckRepositoryInterface;
+use App\Domain\Check\Interfaces\DenyCheckActionInterface;
 use App\Enums\CheckDepositStatus;
 use App\Models\CheckDeposit;
 
-class DenyCheckRepository implements DenyCheckRepositoryInterface
+class DenyCheckAction implements DenyCheckActionInterface
 {
     /**
      * Deny the check.

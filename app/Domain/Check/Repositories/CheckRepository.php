@@ -5,6 +5,7 @@ namespace App\Domain\Check\Repositories;
 use App\Models\CheckDeposit;
 use App\Domain\Check\DTO\CheckData;
 use App\Domain\Check\Interfaces\CheckRepositoryInterface;
+use App\Enums\CheckDepositStatus;
 
 class CheckRepository implements CheckRepositoryInterface
 {
@@ -24,9 +25,13 @@ class CheckRepository implements CheckRepositoryInterface
      * @param  string  $customerId The customer id that will be used to filter the checks.
      * @return Collection
      */
-    public function getChecksByCustomer(string $customerId)
+    public function getChecksByCustomer(string $customerId, CheckDepositStatus $checkDepositStatus = null)
     {
-        return CheckDeposit::where('user_id', $customerId)->get();
+        return CheckDeposit::where('user_id', $customerId)
+            ->when($checkDepositStatus, function($query) use ($checkDepositStatus) {
+                return $query->where('status', $checkDepositStatus);
+            })
+            ->get();
     }
 
     /**
