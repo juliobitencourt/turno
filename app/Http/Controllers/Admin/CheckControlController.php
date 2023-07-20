@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\CheckDeposit;
+use App\Domain\Check\Interfaces\CheckRepositoryInterface;
 use App\Enums\CheckDepositStatus;
 use App\Http\Controllers\Controller;
-use App\Domain\Check\Interfaces\CheckRepositoryInterface;
+use App\Models\CheckDeposit;
 
 class CheckControlController extends Controller
 {
@@ -29,18 +29,18 @@ class CheckControlController extends Controller
             $this->checkRepository->getAllChecks(CheckDepositStatus::APPROVED)->toArray(),
             $this->checkRepository->getAllChecks(CheckDepositStatus::DENIED)->toArray(),
         ])
-        ->flatten(1)
-        ->groupBy('status')
-        ->map(function ($items, $key) {
-            return collect($items)->map(function ($item) {
-                return [
-                    'description' => $item['description'],
-                    'amount' => $item['amount'],
-                    'date' => $item['created_at'],
-                    'link' => route('admin.checks.show', $item['id']),
-                ];
-            })->all();
-        });
+            ->flatten(1)
+            ->groupBy('status')
+            ->map(function ($items, $key) {
+                return collect($items)->map(function ($item) {
+                    return [
+                        'description' => $item['description'],
+                        'amount' => $item['amount'],
+                        'date' => $item['created_at'],
+                        'link' => route('admin.checks.show', $item['id']),
+                    ];
+                })->all();
+            });
 
         return view('admin.checks-list', [
             'pending' => $checks['pending'] ?? [],

@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Customer;
 
+use App\Domain\Transaction\Deposit\Repositories\DepositRepository;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-use App\Domain\Transaction\Deposit\Repositories\DepositRepository;
 
 class IncomeController extends Controller
 {

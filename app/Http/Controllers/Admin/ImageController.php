@@ -9,8 +9,6 @@ class ImageController extends Controller
 {
     /**
      * The list of the accepted mimetype.
-     *
-     * @var  array
      */
     protected array $acceptedTypes = [
         'image/jpeg',

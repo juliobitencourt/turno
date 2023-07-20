@@ -44,7 +44,6 @@ abstract class AbstractTransactionRepository implements TransactionRepositoryInt
      * Get transactions by type.
      *
      * @param  string  $userId The id of the user to filter the transactions.
-     * @return Collection
      */
     public function getTransactions(string $userId): Collection
     {
@@ -58,7 +57,6 @@ abstract class AbstractTransactionRepository implements TransactionRepositoryInt
      * Get the sum of transactions by type.
      *
      * @param  string  $userId The id of the user to sum the transactions.
-     * @return int
      */
     public function sum(string $userId): int
     {
@@ -72,8 +70,6 @@ abstract class AbstractTransactionRepository implements TransactionRepositoryInt
 
     /**
      * This method should be implemented in child classes to determine the transactions's type.
-     *
-     * @return string
      */
     abstract protected function transactionType(): string;
 
@@ -92,7 +88,6 @@ abstract class AbstractTransactionRepository implements TransactionRepositoryInt
      * Checks whether the amount should be converted to a negative value.
      *
      * @param  int  $amount The value to be converted.
-     * @return int
      */
     protected function convertTheAmount(int $amount): int
     {

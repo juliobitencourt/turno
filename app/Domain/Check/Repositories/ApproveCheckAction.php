@@ -4,12 +4,11 @@ namespace App\Domain\Check\Repositories;
 
 use App\Domain\Account\Interfaces\AccountRepositoryInterface;
 use App\Domain\Check\Interfaces\ApproveCheckActionInterface;
-use App\Domain\Transaction\DTO\TransactionData;
 use App\Domain\Transaction\Deposit\Repositories\DepositRepository;
+use App\Domain\Transaction\DTO\TransactionData;
 use App\Enums\CheckDepositStatus;
 use App\Models\CheckDeposit;
 use Carbon\Carbon;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class ApproveCheckAction implements ApproveCheckActionInterface

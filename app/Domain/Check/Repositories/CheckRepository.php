@@ -2,10 +2,10 @@
 
 namespace App\Domain\Check\Repositories;
 
-use App\Models\CheckDeposit;
 use App\Domain\Check\DTO\CheckData;
 use App\Domain\Check\Interfaces\CheckRepositoryInterface;
 use App\Enums\CheckDepositStatus;
+use App\Models\CheckDeposit;
 
 class CheckRepository implements CheckRepositoryInterface
 {
@@ -18,7 +18,7 @@ class CheckRepository implements CheckRepositoryInterface
     public function getAllChecks(CheckDepositStatus $checkDepositStatus = null)
     {
         return CheckDeposit::with('user')
-            ->when($checkDepositStatus, function($query) use ($checkDepositStatus) {
+            ->when($checkDepositStatus, function ($query) use ($checkDepositStatus) {
                 return $query->where('status', $checkDepositStatus);
             })
             ->get();
@@ -34,7 +34,7 @@ class CheckRepository implements CheckRepositoryInterface
     public function getChecksByCustomer(string $customerId, CheckDepositStatus $checkDepositStatus = null)
     {
         return CheckDeposit::where('user_id', $customerId)
-            ->when($checkDepositStatus, function($query) use ($checkDepositStatus) {
+            ->when($checkDepositStatus, function ($query) use ($checkDepositStatus) {
                 return $query->where('status', $checkDepositStatus);
             })
             ->get();

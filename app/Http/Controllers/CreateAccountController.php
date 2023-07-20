@@ -7,7 +7,6 @@ use App\Domain\User\Customer\Repositories\CustomerRepository;
 use App\Domain\User\DTO\UserData;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
 
 class CreateAccountController extends Controller
 {
