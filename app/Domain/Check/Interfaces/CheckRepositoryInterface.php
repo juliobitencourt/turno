@@ -2,6 +2,8 @@
 
 namespace App\Domain\Check\Interfaces;
 
+use App\Domain\Check\DTO\CheckData;
+
 interface CheckRepositoryInterface
 {
     public function getAllChecks();
@@ -10,5 +12,5 @@ interface CheckRepositoryInterface
 
     public function getCheckById(string $checkId);
 
-    public function createCheck(array $checkDetails);
+    public function createCheck(CheckData $checkData);
 }

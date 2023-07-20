@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\Customer;
 
-use App\Domain\Check\Interfaces\CheckRepositoryInterface;
-use App\Http\Controllers\Controller;
 use App\Models\CheckDeposit;
 use Illuminate\Http\Request;
+use App\Domain\Check\DTO\CheckData;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use App\Domain\Check\Interfaces\CheckRepositoryInterface;
 
 class CheckController extends Controller
 {
@@ -59,11 +60,12 @@ class CheckController extends Controller
 
         $filename = $request->file('file')->store();
 
-        return $this->checkRepository->createCheck([
-            'user_id' => Auth::user()->id,
-            'description' => $validatedData['description'],
-            'amount' => $validatedData['amount'],
-            'picture' => $filename,
-        ]);
+        return $this->checkRepository->createCheck(new CheckData(
+                userId: Auth::user()->id,
+                description: $validatedData['description'],
+                amount: $validatedData['amount'],
+                picture: $filename,
+            )
+        );
     }
 }

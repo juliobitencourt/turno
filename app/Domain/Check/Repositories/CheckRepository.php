@@ -2,8 +2,9 @@
 
 namespace App\Domain\Check\Repositories;
 
-use App\Domain\Check\Interfaces\CheckRepositoryInterface;
 use App\Models\CheckDeposit;
+use App\Domain\Check\DTO\CheckData;
+use App\Domain\Check\Interfaces\CheckRepositoryInterface;
 
 class CheckRepository implements CheckRepositoryInterface
 {
@@ -45,13 +46,13 @@ class CheckRepository implements CheckRepositoryInterface
      * @param  CheckData  $checkData The user data used to create the user.
      * @return self Returns an instance of the current class.
      */
-    public function createCheck(array $checkDetails)
+    public function createCheck(CheckData $checkData)
     {
         return CheckDeposit::create([
-            'user_id' => $checkDetails['user_id'],
-            'description' => $checkDetails['description'],
-            'amount' => $checkDetails['amount'],
-            'picture' => $checkDetails['picture'],
+            'user_id' => $checkData->userId,
+            'description' => $checkData->description,
+            'amount' => $checkData->amount,
+            'picture' => $checkData->picture,
         ]);
     }
 }
