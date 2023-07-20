@@ -3,16 +3,16 @@
 namespace App\Domain\Check\Repositories;
 
 use App\Domain\Account\Interfaces\AccountRepositoryInterface;
-use App\Domain\Check\Interfaces\AcceptCheckRepositoryInterface;
+use App\Domain\Check\Interfaces\ApproveCheckRepositoryInterface;
 use App\Domain\Transaction\DTO\TransactionData;
-use App\Domain\Transaction\Withdrawal\Repositories\WithdrawalRepository;
+use App\Domain\Transaction\Deposit\Repositories\DepositRepository;
 use App\Enums\CheckDepositStatus;
 use App\Models\CheckDeposit;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
-class AcceptCheckRepository implements AcceptCheckRepositoryInterface
+class ApproveCheckRepository implements ApproveCheckRepositoryInterface
 {
     /**
      * Initializes a new instance of the CheckDepositHandler class.
@@ -25,21 +25,21 @@ class AcceptCheckRepository implements AcceptCheckRepositoryInterface
     }
 
     /**
-     * Accepts a check deposit and performs necessary operations.
+     * Approves a check deposit and performs necessary operations.
      *
-     * @param  CheckDeposit  $check The check deposit to accept.
+     * @param  CheckDeposit  $check The check deposit to approve.
      * @return void
      */
-    public function accept(CheckDeposit $check)
+    public function approve(CheckDeposit $check)
     {
         $check->status = CheckDepositStatus::APPROVED;
 
         DB::transaction(function () use ($check) {
             $check->save();
 
-            (new WithdrawalRepository)->create(
+            (new DepositRepository)->create(
                 new TransactionData(
-                    userId: Auth::user()->id,
+                    userId: $check->user->id,
                     description: $check->description,
                     amount: $check->amount,
                     date: Carbon::now(),

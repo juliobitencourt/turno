@@ -9,7 +9,7 @@ class CheckRepository implements CheckRepositoryInterface
 {
     public function getAllChecks()
     {
-        return CheckDeposit::all();
+        return CheckDeposit::with('user')->get();
     }
 
     public function getChecksByCustomer(string $customerId)

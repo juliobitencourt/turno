@@ -59,7 +59,7 @@ class ExpenseController extends Controller
                 userId: Auth::user()->id,
                 description: $validated['description'],
                 amount: $validated['amount'],
-                date: $request->date,
+                date: date_create($request->date),
             )
         );
 

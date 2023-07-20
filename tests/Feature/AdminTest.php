@@ -76,7 +76,7 @@ class AdminTest extends TestCase
             'amount' => 10000,
         ]);
 
-        $response = $this->actingAs($admin)->put('/admin/checks/accept/'.$check->id);
+        $response = $this->actingAs($admin)->put('/admin/checks/approve/'.$check->id);
 
         $response->assertStatus(200);
 

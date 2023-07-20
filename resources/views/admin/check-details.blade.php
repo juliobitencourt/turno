@@ -26,7 +26,7 @@
         </div>
     </div>
     <div class="mx-auto w-full lg:w-3/6 p-6 text-blue-500 flex gap-4">
-        <rejectcheck :check="{{ $check }}"></rejectcheck>
-        <acceptcheck :check="{{ $check }}"></acceptcheck>
+        <denycheck :check="{{ $check }}"></denycheck>
+        <approvecheck :check="{{ $check }}"></approvecheck>
     </div>
 @endsection

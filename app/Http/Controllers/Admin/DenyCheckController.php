@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Domain\Interfaces\RejectCheckRepositoryInterface;
+use App\Domain\Interfaces\DenyCheckRepositoryInterface;
 use App\Http\Controllers\Controller;
 use App\Models\CheckDeposit;
 
-class RejectCheckController extends Controller
+class DenyCheckController extends Controller
 {
     public function __construct(
-        private RejectCheckRepositoryInterface $rejectCheckRepository
+        private DenyCheckRepositoryInterface $denyCheckRepository
     ) {
     }
 
@@ -18,6 +18,6 @@ class RejectCheckController extends Controller
      */
     public function __invoke(CheckDeposit $check)
     {
-        $this->rejectCheckRepository->reject($check);
+        $this->denyCheckRepository->deny($check);
     }
 }

@@ -1,9 +1,9 @@
 <?php
 
-use App\Http\Controllers\Admin\AcceptCheckController;
+use App\Http\Controllers\Admin\ApproveCheckController;
 use App\Http\Controllers\Admin\CheckControlController;
 use App\Http\Controllers\Admin\ImageController;
-use App\Http\Controllers\Admin\RejectCheckController;
+use App\Http\Controllers\Admin\DenyCheckController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\CreateAccountController;
@@ -67,8 +67,8 @@ Route::middleware([
     Route::prefix('checks')->group(function () {
         Route::get('/', [CheckControlController::class, 'index'])->name('admin.checks');
         Route::get('/{check}', [CheckControlController::class, 'show'])->name('admin.checks.show');
-        Route::put('/reject/{check}', RejectCheckController::class)->name('admin.reject-check');
-        Route::put('/accept/{check}', AcceptCheckController::class)->name('admin.accept-check');
+        Route::put('/deny/{check}', DenyCheckController::class)->name('admin.deny-check');
+        Route::put('/approve/{check}', ApproveCheckController::class)->name('admin.approve-check');
         Route::get('/images/{filename}', ImageController::class)->name('admin.check-image');
     });
 });

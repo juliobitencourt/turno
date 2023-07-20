@@ -8,8 +8,8 @@
         <TabGroup>
             <TabList class="w-full flex justify-between bg-blue-50 px-6 pt-4">
                 <Tab class="text-sm uppercase pb-2 border-b-2">Pending</Tab>
-                <Tab class="text-sm uppercase pb-2 border-b-2">Accepted</Tab>
-                <Tab class="text-sm uppercase pb-2 border-b-2">Rejected</Tab>
+                <Tab class="text-sm uppercase pb-2 border-b-2">Approved</Tab>
+                <Tab class="text-sm uppercase pb-2 border-b-2">Denied</Tab>
             </TabList>
             <TabPanels class="w-full">
                 <TabPanel>

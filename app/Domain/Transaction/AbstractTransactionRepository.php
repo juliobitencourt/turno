@@ -4,6 +4,7 @@ namespace App\Domain\Transaction;
 
 use App\Domain\Transaction\DTO\TransactionData;
 use App\Domain\Transaction\Interfaces\TransactionRepositoryInterface;
+use App\Enums\TransactionType;
 use App\Models\Transaction;
 use App\Traits\NumberFormat;
 use Carbon\Carbon;
@@ -32,7 +33,7 @@ abstract class AbstractTransactionRepository implements TransactionRepositoryInt
         $this->transaction->user_id = $transactionData->userId;
         $this->transaction->type = $this->transactionType();
         $this->transaction->description = $transactionData->description;
-        $this->transaction->amount = $transactionData->amount;
+        $this->transaction->amount = $this->transactionType() === TransactionType::WITHDRAWAL->value ? -$transactionData->amount : $transactionData->amount;
         $this->transaction->date = Carbon::parse($transactionData->date)->toDateTimeString();
         $this->transaction->save();
 
