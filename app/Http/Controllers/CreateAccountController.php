@@ -13,6 +13,9 @@ class CreateAccountController extends Controller
 {
     /**
      * Handle the incoming request.
+     *
+     * @param  Request  $request The http request.
+     * @param  AccountRepositoryInterface  $accountRepository The account repository to be used.
      */
     public function __invoke(
         Request $request,
@@ -30,7 +33,7 @@ class CreateAccountController extends Controller
                 username: $validated['username'],
                 name: $validated['name'],
                 email: $validated['email'],
-                password: Hash::make($validated['password']),
+                password: $validated['password'],
             )
         );
 

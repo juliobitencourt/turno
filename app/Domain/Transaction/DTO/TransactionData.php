@@ -7,10 +7,10 @@ use DateTime;
 class TransactionData
 {
     public function __construct(
-        public string $userId,
-        public string $description,
-        public int $amount,
-        public DateTime $date,
+        public readonly string $userId,
+        public readonly string $description,
+        public readonly int $amount,
+        public readonly DateTime $date,
     ) {
     }
 }

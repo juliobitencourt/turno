@@ -10,6 +10,11 @@ use Illuminate\Support\Facades\Auth;
 
 class CheckController extends Controller
 {
+    /**
+     * Initializes a new instance of the CheckController class.
+     *
+     * @param  CheckRepositoryInterface  $checkRepository The check repository to be used.
+     */
     public function __construct(
         private CheckRepositoryInterface $checkRepository
     ) {
@@ -41,6 +46,9 @@ class CheckController extends Controller
         return view('customer.checks-form');
     }
 
+    /**
+     * Store a newly created resource in storage.
+     */
     public function store(Request $request): CheckDeposit
     {
         $validatedData = $request->validate([

@@ -10,6 +10,8 @@ class LoginController extends Controller
 {
     /**
      * Handle the incoming request.
+     *
+     * @param  Request  $request The http request.
      */
     public function __invoke(Request $request)
     {

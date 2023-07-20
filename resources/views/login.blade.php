@@ -9,7 +9,7 @@
             <form action="{{ route('login.create') }}" method="post" class="flex flex-col gap-6">
                 @csrf
                 <div class="flex flex-col">
-                    <input class="border rounded-full px-3 py-2 text-sm" type="email" name="email" id="email" placeholder="E-mail" value="{{ old('email') }}" >
+                    <input class="border rounded-full px-3 py-2 text-sm" type="email" name="email" id="email" placeholder="E-mail" value="{{ old('email') }}" autofocus>
                     @error('email')
                         <span class="text-red-500 px-3 py-1 text-xs font-semibold">{{ $message }}</span>
                     @enderror

@@ -8,6 +8,11 @@ use App\Models\CheckDeposit;
 
 class CheckControlController extends Controller
 {
+    /**
+     * Initializes a new instance of the CheckControlController class.
+     *
+     * @param  CheckRepositoryInterface  $checkRepository The check repository to be used.
+     */
     public function __construct(
         private CheckRepositoryInterface $checkRepository
     ) {

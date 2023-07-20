@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\DB;
 class ApproveCheckRepository implements ApproveCheckRepositoryInterface
 {
     /**
-     * Initializes a new instance of the CheckDepositHandler class.
+     * Initializes a new instance of the ApproveCheckRepository class.
      *
      * @param  AccountRepositoryInterface  $account The account repository to use for account operations.
      */

@@ -11,6 +11,12 @@ use Illuminate\Support\Facades\Auth;
 
 class ExpenseController extends Controller
 {
+    /**
+     * Initializes a new instance of the ExpenseController class.
+     *
+     * @param  AccountRepositoryInterface  $account The account repository to be used.
+     * @param  WithdrawalRepository  $withdrawal The withdrawal repository to be used.
+     */
     public function __construct(
         public readonly AccountRepositoryInterface $account,
         public readonly WithdrawalRepository $withdrawal,

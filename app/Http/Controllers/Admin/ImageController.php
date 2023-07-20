@@ -7,6 +7,11 @@ use Illuminate\Support\Facades\Response;
 
 class ImageController extends Controller
 {
+    /**
+     * The list of the accepted mimetype.
+     *
+     * @var  array
+     */
     protected array $acceptedTypes = [
         'image/jpeg',
         'image/png',
@@ -20,8 +25,10 @@ class ImageController extends Controller
 
     /**
      * Handle the incoming request.
+     *
+     * @param  string  $filename The filename that will be showed.
      */
-    public function __invoke($filename)
+    public function __invoke(string $filename): mixed
     {
         $path = storage_path('app/').$filename;
 

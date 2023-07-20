@@ -5,10 +5,10 @@ namespace App\Domain\User\DTO;
 class UserData
 {
     public function __construct(
-        public string $username,
-        public string $name,
-        public string $email,
-        public string $password,
+        public readonly string $username,
+        public readonly string $name,
+        public readonly string $email,
+        public readonly string $password,
     ) {
     }
 }

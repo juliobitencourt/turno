@@ -12,6 +12,11 @@ class HomeController extends Controller
 {
     /**
      * Handle the incoming request.
+     *
+     * @param  AccountRepositoryInterface  $accountRepository The account repository to be used.
+     * @param  DepositRepository  $deposit The deposit repository to be used.
+     * @param  WithdrawalRepository  $withdrawal The withdrawal repository to be used.
+     * @param int  $month The month that might be used to filter
      */
     public function __invoke(
         AccountRepositoryInterface $account,
