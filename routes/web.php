@@ -1,18 +1,19 @@
 <?php
 
-use App\Http\Controllers\Admin\ApproveCheckController;
-use App\Http\Controllers\Admin\CheckControlController;
-use App\Http\Controllers\Admin\ImageController;
-use App\Http\Controllers\Admin\DenyCheckController;
+use App\Http\Middleware\UserIsAdmin;
+use Illuminate\Support\Facades\Route;
+use App\Http\Middleware\UserIsCustomer;
+use App\Http\Controllers\Customer\IncomeController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Admin\ImageController;
 use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\CreateAccountController;
-use App\Http\Controllers\Customer\CheckController;
-use App\Http\Controllers\Customer\ExpenseController;
 use App\Http\Controllers\Customer\HomeController;
-use App\Http\Middleware\UserIsAdmin;
-use App\Http\Middleware\UserIsCustomer;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Customer\CheckController;
+use App\Http\Controllers\Admin\DenyCheckController;
+use App\Http\Controllers\Customer\ExpenseController;
+use App\Http\Controllers\Admin\ApproveCheckController;
+use App\Http\Controllers\Admin\CheckControlController;
 
 /*
 |--------------------------------------------------------------------------
@@ -46,6 +47,8 @@ Route::middleware([
     UserIsCustomer::class,
 ])->group(function () {
     Route::get('home/{month?}', HomeController::class)->name('home');
+
+    Route::get('incomes', [IncomeController::class, 'index'])->name('incomes');
 
     Route::prefix('expenses')->group(function () {
         Route::get('/', [ExpenseController::class, 'index'])->name('expenses');
