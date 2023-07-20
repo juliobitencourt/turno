@@ -12,17 +12,23 @@ class CheckRepository implements CheckRepositoryInterface
     /**
      * Get all checks.
      *
+     * @param  CheckDepositStatus  $checkDepositStatus The check status to filter.
      * @return Collection
      */
-    public function getAllChecks()
+    public function getAllChecks(CheckDepositStatus $checkDepositStatus = null)
     {
-        return CheckDeposit::with('user')->get();
+        return CheckDeposit::with('user')
+            ->when($checkDepositStatus, function($query) use ($checkDepositStatus) {
+                return $query->where('status', $checkDepositStatus);
+            })
+            ->get();
     }
 
     /**
      * Get all checks by the provided customer.
      *
      * @param  string  $customerId The customer id that will be used to filter the checks.
+     * @param  CheckDepositStatus  $checkDepositStatus The check status to filter.
      * @return Collection
      */
     public function getChecksByCustomer(string $customerId, CheckDepositStatus $checkDepositStatus = null)
